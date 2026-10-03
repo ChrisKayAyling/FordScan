@@ -1,0 +1,152 @@
+name: Release
+
+# Push a tag such as v0.1.0 to build all platforms and publish a GitHub release.
+# "Run workflow" on the Actions tab builds the packages as a dry run (no release is created).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: 1
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - run: dotnet test FordDiag.sln -c Release
+
+  package:
+    name: package (${{ matrix.rid }})
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        rid: [win-x64, linux-x64, osx-arm64, osx-x64]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Work out the version
+        id: v
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then V="${GITHUB_REF_NAME#v}"; else V="0.0.0-dev.${GITHUB_RUN_NUMBER}"; fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - name: Publish app and command line tool (self-contained, single file)
+        run: |
+          COMMON="-c Release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:Version=${{ steps.v.outputs.version }}"
+          dotnet publish src/FordDiag.App $COMMON -o out/app
+          dotnet publish src/FordDiag.Cli $COMMON -o out/cli
+
+      - name: Package
+        id: pkg
+        run: |
+          set -euo pipefail
+          NAME="FordDiag-${{ steps.v.outputs.version }}-${{ matrix.rid }}"
+          mkdir -p "dist/$NAME"
+          cp README.md LICENSE NOTICE.md "dist/$NAME/"
+          cp -r docs/FILE_FORMATS.md docs/RESEARCH.md "dist/$NAME/" || true
+          case "${{ matrix.rid }}" in
+            win-x64)
+              cp out/app/FordDiag.exe "dist/$NAME/"
+              cp out/cli/fordiag.exe "dist/$NAME/"
+              (cd dist && zip -qr "../$NAME.zip" "$NAME")
+              echo "file=$NAME.zip" >> "$GITHUB_OUTPUT" ;;
+            linux-x64)
+              cp out/app/FordDiag "dist/$NAME/"
+              cp out/cli/fordiag "dist/$NAME/"
+              chmod +x "dist/$NAME/FordDiag" "dist/$NAME/fordiag"
+              tar -C dist -czf "$NAME.tar.gz" "$NAME"
+              echo "file=$NAME.tar.gz" >> "$GITHUB_OUTPUT" ;;
+            osx-*)
+              APP="dist/$NAME/FordDiag.app/Contents"
+              mkdir -p "$APP/MacOS"
+              cp out/app/FordDiag "$APP/MacOS/FordDiag"
+              chmod +x "$APP/MacOS/FordDiag"
+              cat > "$APP/Info.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+            <key>CFBundleName</key><string>FordDiag</string>
+            <key>CFBundleDisplayName</key><string>FordDiag</string>
+            <key>CFBundleIdentifier</key><string>io.github.chriskayayling.forddiag</string>
+            <key>CFBundleExecutable</key><string>FordDiag</string>
+            <key>CFBundlePackageType</key><string>APPL</string>
+            <key>CFBundleShortVersionString</key><string>${{ steps.v.outputs.version }}</string>
+            <key>CFBundleVersion</key><string>${{ steps.v.outputs.version }}</string>
+            <key>LSMinimumSystemVersion</key><string>11.0</string>
+            <key>NSHighResolutionCapable</key><true/>
+          </dict></plist>
+          PLIST
+              cp out/cli/fordiag "dist/$NAME/fordiag"
+              chmod +x "dist/$NAME/fordiag"
+              tar -C dist -czf "$NAME.tar.gz" "$NAME"
+              echo "file=$NAME.tar.gz" >> "$GITHUB_OUTPUT" ;;
+          esac
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.rid }}
+          path: ${{ steps.pkg.outputs.file }}
+          if-no-files-found: error
+
+  release:
+    name: publish release
+    needs: package
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: Checksums
+        run: cd artifacts && sha256sum * > SHA256SUMS.txt && cat SHA256SUMS.txt
+      - name: Write release notes
+        run: |
+          cat > notes.md <<'NOTES'
+          Diagnostics and coding for Ford vehicles over ELM327-compatible adapters (vLinker FS, OBDLink EX, ELM327 with an HS/MS switch).
+
+          **Status: tested against a simulator only. No real adapter or vehicle has been tried yet.** Writing to vehicle modules can permanently damage them; use expert mode with care.
+
+          ### Download
+          | Platform | File |
+          |---|---|
+          | Windows (x64) | `FordDiag-<version>-win-x64.zip` |
+          | Linux (x64) | `FordDiag-<version>-linux-x64.tar.gz` |
+          | macOS, Apple silicon | `FordDiag-<version>-osx-arm64.tar.gz` |
+          | macOS, Intel | `FordDiag-<version>-osx-x64.tar.gz` |
+
+          No .NET install is needed. Each package holds the app (`FordDiag`) and the command line tool (`fordiag`).
+
+          ### First run
+          - **Windows:** install the FTDI virtual COM port driver for your adapter. SmartScreen may warn about an unsigned app: *More info → Run anyway*.
+          - **macOS:** the app is not signed. Open it with right-click → Open, or run `xattr -dr com.apple.quarantine FordDiag.app`.
+          - **Linux:** add your user to the `dialout` group to reach `/dev/ttyUSB*`.
+          - Tick *Use built-in vehicle simulator* on the Connect page to try everything without a car.
+
+          Verify downloads with `SHA256SUMS.txt`. Third-party data is credited in `NOTICE.md`.
+          NOTES
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" artifacts/* \
+            --title "FordDiag ${GITHUB_REF_NAME#v}" \
+            --notes-file notes.md \
+            --generate-notes \
+            --verify-tag

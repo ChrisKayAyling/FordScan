@@ -45,6 +45,7 @@ public sealed partial class ModuleInfo : ObservableObject
 public sealed partial class AppState : ObservableObject
 {
     private readonly SemaphoreSlim _busLock = new(1, 1);
+    private readonly object _logLock = new();
     private ElmTransport? _elm;
     private FordSimulator? _sim;
 
@@ -142,7 +143,8 @@ public sealed partial class AppState : ObservableObject
     private void Add(LogKind kind, string text)
     {
         var line = new LogLine(DateTime.Now, kind, text);
-        void Do() { Log.Add(line); if (Log.Count > 2000) Log.RemoveAt(0); }
+        // adapter trace lines arrive on I/O threads; without a UI thread (tests, headless) serialise the writers
+        void Do() { lock (_logLock) { Log.Add(line); if (Log.Count > 2000) Log.RemoveAt(0); } }
         if (Avalonia.Application.Current is null || Dispatcher.UIThread.CheckAccess()) Do(); else Dispatcher.UIThread.Post(Do);
     }
 

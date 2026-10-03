@@ -23,7 +23,13 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 9.0.x
-      - run: dotnet test FordDiag.sln -c Release
+      - run: dotnet test FordDiag.sln -c Release --logger "trx;LogFileName=test.trx" --logger "console;verbosity=normal" --results-directory TestResults
+      - name: Keep test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults
 
   package:
     name: package (${{ matrix.rid }})

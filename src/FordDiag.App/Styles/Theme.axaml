@@ -1,0 +1,53 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="AppBgBrush" Color="#F2F4F8" />
+                    <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#F6F8FB" />
+                    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#ECF0F6" />
+                    <SolidColorBrush x:Key="BorderSubtleBrush" Color="#E1E6EE" />
+                    <SolidColorBrush x:Key="TextMutedBrush" Color="#667085" />
+                    <SolidColorBrush x:Key="NavBgBrush" Color="#0F2A56" />
+                    <SolidColorBrush x:Key="NavFgBrush" Color="#C9D6EE" />
+                    <SolidColorBrush x:Key="NavActiveBrush" Color="#1F4A93" />
+                    <SolidColorBrush x:Key="AccentBrush" Color="#1D5BD6" />
+                    <SolidColorBrush x:Key="AccentSoftBrush" Color="#E3ECFD" />
+                    <SolidColorBrush x:Key="SuccessBrush" Color="#16A34A" />
+                    <SolidColorBrush x:Key="SuccessSoftBrush" Color="#DCFCE7" />
+                    <SolidColorBrush x:Key="WarningBrush" Color="#B45309" />
+                    <SolidColorBrush x:Key="WarningSoftBrush" Color="#FEF3C7" />
+                    <SolidColorBrush x:Key="DangerBrush" Color="#DC2626" />
+                    <SolidColorBrush x:Key="DangerSoftBrush" Color="#FEE2E2" />
+                    <SolidColorBrush x:Key="TerminalBgBrush" Color="#0E1116" />
+                    <SolidColorBrush x:Key="TerminalFgBrush" Color="#D6DCE5" />
+                    <BoxShadows x:Key="CardShadow">0 1 2 0 #14101828</BoxShadows>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="AppBgBrush" Color="#0E1116" />
+                    <SolidColorBrush x:Key="SurfaceBrush" Color="#171B22" />
+                    <SolidColorBrush x:Key="SurfaceAltBrush" Color="#1B2028" />
+                    <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#212733" />
+                    <SolidColorBrush x:Key="BorderSubtleBrush" Color="#2A303B" />
+                    <SolidColorBrush x:Key="TextMutedBrush" Color="#9AA4B5" />
+                    <SolidColorBrush x:Key="NavBgBrush" Color="#0A1426" />
+                    <SolidColorBrush x:Key="NavFgBrush" Color="#AEBBD4" />
+                    <SolidColorBrush x:Key="NavActiveBrush" Color="#18407F" />
+                    <SolidColorBrush x:Key="AccentBrush" Color="#5B93F5" />
+                    <SolidColorBrush x:Key="AccentSoftBrush" Color="#18284A" />
+                    <SolidColorBrush x:Key="SuccessBrush" Color="#4ADE80" />
+                    <SolidColorBrush x:Key="SuccessSoftBrush" Color="#16301F" />
+                    <SolidColorBrush x:Key="WarningBrush" Color="#FBBF24" />
+                    <SolidColorBrush x:Key="WarningSoftBrush" Color="#3A2E10" />
+                    <SolidColorBrush x:Key="DangerBrush" Color="#F87171" />
+                    <SolidColorBrush x:Key="DangerSoftBrush" Color="#3B1618" />
+                    <SolidColorBrush x:Key="TerminalBgBrush" Color="#0A0D11" />
+                    <SolidColorBrush x:Key="TerminalFgBrush" Color="#D6DCE5" />
+                    <BoxShadows x:Key="CardShadow">0 1 2 0 #40000000</BoxShadows>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+            <FontFamily x:Key="MonoFont">Cascadia Mono, Consolas, Menlo, DejaVu Sans Mono, Liberation Mono, monospace</FontFamily>
+        </ResourceDictionary>
+    </Styles.Resources>
+</Styles>

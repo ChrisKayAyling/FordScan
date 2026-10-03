@@ -1,0 +1,97 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services" xmlns:core="using:FordDiag.Core"
+             x:Class="FordDiag.App.Views.CaptureView" x:DataType="vm:CaptureViewModel">
+    <Grid RowDefinitions="Auto,*" Margin="32 28 32 24" RowSpacing="16">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <Button Classes="plain" Command="{Binding OpenLogCommand}" Content="Open log…" />
+                <Button Classes="plain" Command="{Binding SaveLogCommand}" Content="Save log…" />
+                <Button Classes="accent" Command="{Binding StartCommand}" IsVisible="{Binding IsStopped}">
+                    <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Record}" Width="14" Height="14" /><TextBlock Text="Start recording" /></StackPanel>
+                </Button>
+                <Button Classes="plain" Command="{Binding StopCommand}" IsVisible="{Binding IsRunning}">
+                    <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Stop}" Width="14" Height="14" /><TextBlock Text="Stop" /></StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h1" Text="Capture" />
+                <TextBlock Classes="muted" Text="{Binding Status}" />
+            </StackPanel>
+        </DockPanel>
+
+        <Grid Grid.Row="1" ColumnDefinitions="340,*" ColumnSpacing="16">
+            <ScrollViewer>
+                <StackPanel Spacing="14">
+                    <Border Classes="card">
+                        <StackPanel Spacing="12">
+                            <TextBlock Classes="h2" Text="Adapter" />
+                            <ComboBox ItemsSource="{Binding Adapters}" SelectedItem="{Binding SelectedAdapter}" HorizontalAlignment="Stretch">
+                                <ComboBox.ItemTemplate><DataTemplate x:DataType="core:FordAdapter"><TextBlock Text="{Binding DisplayName}" /></DataTemplate></ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBox Text="{Binding Port}" PlaceholderText="/dev/ttyUSB0, COM3" />
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                                <StackPanel Spacing="4"><TextBlock Classes="caption" Text="Listen on port" /><NumericUpDown Value="{Binding ListenPort}" Minimum="1024" Maximum="65535" FormatString="0" /></StackPanel>
+                            </Grid>
+                            <CheckBox IsChecked="{Binding AllowRemote}" Content="Allow other computers to connect" />
+                            <CheckBox IsChecked="{Binding UseSimulator}" Content="Use the built-in simulator instead of an adapter" />
+                            <TextBlock Classes="caption" Text="{Binding StartHint}" TextWrapping="Wrap" />
+                            <Border Classes="banner bad" IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><TextBlock Text="{Binding Message}" TextWrapping="Wrap" /></Border>
+                        </StackPanel>
+                    </Border>
+                    <Border Classes="card">
+                        <StackPanel Spacing="8">
+                            <TextBlock Classes="h2" Text="How to use it" />
+                            <TextBlock Text="{Binding Instructions}" TextWrapping="Wrap" />
+                            <TextBlock Classes="caption" TextWrapping="Wrap" Text="Records the conversation between a program on your computer and your adapter on your own vehicle. Nothing is changed or sent by FordDiag itself." />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Column="1" RowDefinitions="Auto,Auto,*,Auto" RowSpacing="10">
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                    <TextBox Text="{Binding MarkerText}" PlaceholderText="Marker, e.g. battery reset (press Enter or Add before you do it in FORScan)" />
+                    <Button Grid.Column="1" Classes="plain" Command="{Binding AddMarkerCommand}" Content="Add marker" />
+                </Grid>
+                <StackPanel Grid.Row="1" Spacing="6">
+                    <TextBlock Classes="caption" Text="{Binding Summary}" />
+                    <Border Classes="banner" IsVisible="{Binding Warning, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"><TextBlock Text="{Binding Warning}" TextWrapping="Wrap" /></Border>
+                </StackPanel>
+                <Border Grid.Row="2" Classes="card" Padding="0" ClipToBounds="True">
+                    <Grid RowDefinitions="Auto,*">
+                        <Grid Height="36" ColumnDefinitions="70,64,*,230" Background="{DynamicResource SurfaceAltBrush}">
+                            <TextBlock Classes="caption" Text="Time" Margin="16 0 0 0" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="1" Classes="caption" Text="Module" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="2" Classes="caption" Text="What it did" VerticalAlignment="Center" />
+                            <TextBlock Grid.Column="3" Classes="caption" Text="Request → answer" VerticalAlignment="Center" />
+                        </Grid>
+                        <ListBox Grid.Row="1" Classes="rows" ItemsSource="{Binding Rows}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:CaptureRow">
+                                    <Grid MinHeight="40" ColumnDefinitions="70,64,*,230">
+                                        <TextBlock Text="{Binding Time}" Classes="caption mono" Margin="16 0 0 0" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Module}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Text="{Binding What}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 4 12 4" />
+                                        <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Request}" Classes="mono" FontSize="11.5" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding Response}" Classes="mono muted" FontSize="11.5" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <TextBlock Grid.Row="1" Classes="muted" Text="Nothing recorded yet." HorizontalAlignment="Center" VerticalAlignment="Center" IsHitTestVisible="False" IsVisible="{Binding !HasRows}" />
+                    </Grid>
+                </Border>
+                <StackPanel Grid.Row="3" Spacing="8">
+                    <ComboBox ItemsSource="{Binding Segments}" SelectedItem="{Binding SelectedSegment}" HorizontalAlignment="Stretch" />
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+                        <Button Classes="plain" Command="{Binding ExportPidDraftCommand}" Content="Save DIDs seen as a data file" />
+                        <Button Classes="accent" Command="{Binding ExportProcedureCommand}" Content="Turn this section into a procedure" />
+                    </StackPanel>
+                    <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Classes="caption" IsVisible="{Binding Message, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

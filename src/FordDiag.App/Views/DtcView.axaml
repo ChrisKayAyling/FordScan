@@ -1,0 +1,56 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services"
+             x:Class="FordDiag.App.Views.DtcView" x:DataType="vm:DtcViewModel">
+    <Grid RowDefinitions="Auto,*" Margin="32 28 32 24" RowSpacing="16">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                <ComboBox ItemsSource="{Binding Scopes}" SelectedItem="{Binding Scope}" MinWidth="150" />
+                <Button Classes="danger" Command="{Binding ClearCommand}" ToolTip.Tip="Expert mode required">
+                    <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Delete}" Width="14" Height="14" /><TextBlock Text="Clear codes" /></StackPanel>
+                </Button>
+                <Button Classes="accent" Command="{Binding ReadCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Refresh}" Width="14" Height="14" /><TextBlock Text="Read codes" /></StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h1" Text="Trouble codes" />
+                <TextBlock Classes="muted" Text="{Binding Summary}" />
+            </StackPanel>
+        </DockPanel>
+        <Border Grid.Row="1" Classes="card" Padding="0" ClipToBounds="True">
+            <Grid RowDefinitions="Auto,Auto,*">
+                <Grid Height="38" ColumnDefinitions="80,80,110,*,230" Background="{DynamicResource SurfaceAltBrush}">
+                    <TextBlock Classes="caption" Text="Module" Margin="18 0 0 0" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Classes="caption" Text="Bus" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="2" Classes="caption" Text="Code" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="3" Classes="caption" Text="Description" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="4" Classes="caption" Text="Status" VerticalAlignment="Center" />
+                </Grid>
+                <ProgressBar Grid.Row="1" Height="3" IsIndeterminate="True" IsVisible="{Binding IsBusy}" />
+                <ListBox Grid.Row="2" Classes="rows" ItemsSource="{Binding Rows}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:DtcRow">
+                            <Grid Height="48" ColumnDefinitions="80,80,110,*,230">
+                                <TextBlock Text="{Binding Module}" FontWeight="SemiBold" Margin="18 0 0 0" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding Bus}" Classes="caption" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="{Binding Code}" Classes="mono" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="3" Text="{Binding Description}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="0 0 12 0" />
+                                <Border Grid.Column="4" Classes="pill" Classes.bad="{Binding Active}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Status}" FontSize="11" FontWeight="SemiBold" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6" IsHitTestVisible="False" IsVisible="{Binding ShowHint}">
+                    <PathIcon Data="{x:Static s:Icons.Warning}" Width="30" Height="30" Foreground="{DynamicResource TextMutedBrush}" />
+                    <TextBlock Classes="muted" Text="{Binding Hint}" HorizontalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6" IsHitTestVisible="False" IsVisible="{Binding ShowEmpty}">
+                    <TextBlock Text="✓" FontSize="30" Foreground="{DynamicResource SuccessBrush}" HorizontalAlignment="Center" />
+                    <TextBlock Classes="muted" Text="No trouble codes stored." HorizontalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

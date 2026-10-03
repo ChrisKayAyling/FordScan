@@ -1,0 +1,23 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels"
+             xmlns:v="using:FordDiag.App.Views"
+             x:Class="FordDiag.App.App"
+             RequestedThemeVariant="Default">
+    <Application.Styles>
+        <FluentTheme />
+        <StyleInclude Source="avares://FordDiag/Styles/Theme.axaml" />
+        <StyleInclude Source="avares://FordDiag/Styles/Controls.axaml" />
+    </Application.Styles>
+    <Application.DataTemplates>
+        <DataTemplate DataType="vm:ConnectViewModel"><v:ConnectView /></DataTemplate>
+        <DataTemplate DataType="vm:ModulesViewModel"><v:ModulesView /></DataTemplate>
+        <DataTemplate DataType="vm:DtcViewModel"><v:DtcView /></DataTemplate>
+        <DataTemplate DataType="vm:LiveDataViewModel"><v:LiveDataView /></DataTemplate>
+        <DataTemplate DataType="vm:ServiceViewModel"><v:ServiceView /></DataTemplate>
+        <DataTemplate DataType="vm:CodingViewModel"><v:CodingView /></DataTemplate>
+        <DataTemplate DataType="vm:TerminalViewModel"><v:TerminalView /></DataTemplate>
+        <DataTemplate DataType="vm:CaptureViewModel"><v:CaptureView /></DataTemplate>
+        <DataTemplate DataType="vm:SettingsViewModel"><v:SettingsView /></DataTemplate>
+    </Application.DataTemplates>
+</Application>

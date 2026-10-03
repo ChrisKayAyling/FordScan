@@ -1,0 +1,49 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="TextBlock.h1"><Setter Property="FontSize" Value="24" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+    <Style Selector="TextBlock.h2"><Setter Property="FontSize" Value="15" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+    <Style Selector="TextBlock.muted"><Setter Property="Foreground" Value="{DynamicResource TextMutedBrush}" /></Style>
+    <Style Selector="TextBlock.caption"><Setter Property="FontSize" Value="12" /><Setter Property="Foreground" Value="{DynamicResource TextMutedBrush}" /></Style>
+    <Style Selector="TextBlock.mono"><Setter Property="FontFamily" Value="{StaticResource MonoFont}" /></Style>
+    <Style Selector="TextBlock.big"><Setter Property="FontSize" Value="30" /><Setter Property="FontWeight" Value="SemiBold" /></Style>
+
+    <Style Selector="Border.card">
+        <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BorderSubtleBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="Padding" Value="18" />
+        <Setter Property="BoxShadow" Value="{DynamicResource CardShadow}" />
+    </Style>
+    <Style Selector="Border.pill"><Setter Property="CornerRadius" Value="10" /><Setter Property="Padding" Value="8 2" /><Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" /></Style>
+    <Style Selector="Border.pill.ok"><Setter Property="Background" Value="{DynamicResource SuccessSoftBrush}" /></Style>
+    <Style Selector="Border.pill.warn"><Setter Property="Background" Value="{DynamicResource WarningSoftBrush}" /></Style>
+    <Style Selector="Border.pill.bad"><Setter Property="Background" Value="{DynamicResource DangerSoftBrush}" /></Style>
+    <Style Selector="Border.pill.info"><Setter Property="Background" Value="{DynamicResource AccentSoftBrush}" /></Style>
+    <Style Selector="Border.banner"><Setter Property="CornerRadius" Value="8" /><Setter Property="Padding" Value="12 10" /><Setter Property="Background" Value="{DynamicResource WarningSoftBrush}" /></Style>
+    <Style Selector="Border.banner.bad"><Setter Property="Background" Value="{DynamicResource DangerSoftBrush}" /></Style>
+
+    <Style Selector="Button.accent">
+        <Setter Property="Background" Value="{DynamicResource AccentBrush}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Padding" Value="14 8" />
+        <Setter Property="CornerRadius" Value="8" />
+    </Style>
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter"><Setter Property="Background" Value="{DynamicResource AccentBrush}" /><Setter Property="Opacity" Value="0.88" /></Style>
+    <Style Selector="Button.accent:disabled"><Setter Property="Opacity" Value="0.5" /></Style>
+    <Style Selector="Button.danger"><Setter Property="Background" Value="{DynamicResource DangerSoftBrush}" /><Setter Property="Foreground" Value="{DynamicResource DangerBrush}" /><Setter Property="FontWeight" Value="SemiBold" /><Setter Property="Padding" Value="14 8" /><Setter Property="CornerRadius" Value="8" /></Style>
+    <Style Selector="Button.danger:pointerover /template/ ContentPresenter"><Setter Property="Background" Value="{DynamicResource DangerSoftBrush}" /><Setter Property="Opacity" Value="0.8" /></Style>
+    <Style Selector="Button.danger:disabled"><Setter Property="Opacity" Value="0.45" /></Style>
+    <Style Selector="Button.plain"><Setter Property="Padding" Value="12 8" /><Setter Property="CornerRadius" Value="8" /></Style>
+
+    <Style Selector="ListBox.rows"><Setter Property="Background" Value="Transparent" /></Style>
+    <Style Selector="ListBox.rows > ListBoxItem"><Setter Property="Padding" Value="0" /><Setter Property="MinHeight" Value="0" /><Setter Property="CornerRadius" Value="0" /></Style>
+
+    <Style Selector="ListBox.nav > ListBoxItem">
+        <Setter Property="Padding" Value="12 0" /><Setter Property="Margin" Value="8 2" /><Setter Property="Height" Value="42" />
+        <Setter Property="CornerRadius" Value="8" /><Setter Property="Foreground" Value="{DynamicResource NavFgBrush}" />
+    </Style>
+    <Style Selector="ListBox.nav > ListBoxItem:pointerover /template/ ContentPresenter"><Setter Property="Background" Value="{DynamicResource NavActiveBrush}" /><Setter Property="Opacity" Value="0.7" /></Style>
+    <Style Selector="ListBox.nav > ListBoxItem:selected /template/ ContentPresenter"><Setter Property="Background" Value="{DynamicResource NavActiveBrush}" /><Setter Property="Foreground" Value="White" /></Style>
+    <Style Selector="Button.flat"><Setter Property="Background" Value="Transparent" /><Setter Property="Padding" Value="0" /></Style>
+    <Style Selector="Button.flat:pointerover /template/ ContentPresenter"><Setter Property="Background" Value="Transparent" /></Style>
+</Styles>

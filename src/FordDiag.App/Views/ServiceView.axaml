@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services" xmlns:svc="using:FordDiag.Core.Service"
+             x:Class="FordDiag.App.Views.ServiceView" x:DataType="vm:ServiceViewModel">
+    <Grid RowDefinitions="Auto,*" Margin="32 28 32 24" RowSpacing="16">
+        <DockPanel>
+            <StackPanel Spacing="6">
+                <TextBlock Classes="h1" Text="Service" />
+                <StackPanel Orientation="Horizontal" Spacing="0">
+                    <ToggleButton Content="Service functions" IsChecked="{Binding ShowServices, Mode=OneWay}" Command="{Binding ShowServicesTabCommand}" CornerRadius="8 0 0 8" Padding="14 6" />
+                    <ToggleButton Content="Output tests" IsChecked="{Binding ShowTests, Mode=OneWay}" Command="{Binding ShowTestsTabCommand}" CornerRadius="0 8 8 0" Padding="14 6" />
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+        <Grid Grid.Row="1" ColumnDefinitions="320,*" ColumnSpacing="16">
+            <Border Classes="card" Padding="0" ClipToBounds="True">
+                <ListBox Classes="rows" ItemsSource="{Binding Items}" SelectedItem="{Binding Selected}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="svc:Procedure">
+                            <StackPanel Margin="16 10" Spacing="2">
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" FontWeight="SemiBold" />
+                                <TextBlock Classes="caption" Text="{Binding Category}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <ScrollViewer Grid.Column="1">
+                <StackPanel Spacing="14" IsVisible="{Binding HasSelected}">
+                    <Border Classes="card">
+                        <StackPanel Spacing="10">
+                            <DockPanel>
+                                <Border DockPanel.Dock="Right" Classes="pill info" VerticalAlignment="Top"><TextBlock Text="{Binding Badge}" FontSize="11" FontWeight="SemiBold" /></Border>
+                                <TextBlock Classes="h2" Text="{Binding Selected.Name}" TextWrapping="Wrap" />
+                            </DockPanel>
+                            <TextBlock Text="{Binding Selected.Description}" TextWrapping="Wrap" />
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" IsVisible="{Binding NeedsTarget}">
+                                <TextBlock Classes="caption" Text="Module" VerticalAlignment="Center" />
+                                <ComboBox Grid.Column="1" ItemsSource="{Binding Targets}" SelectedItem="{Binding SelectedTarget}" HorizontalAlignment="Stretch" PlaceholderText="Scan the vehicle first">
+                                    <ComboBox.ItemTemplate><DataTemplate x:DataType="s:ModuleInfo"><TextBlock><Run Text="{Binding Abbrev}" FontWeight="SemiBold" /><Run Text="  " /><Run Text="{Binding Address}" /></TextBlock></DataTemplate></ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                            <TextBlock Classes="caption" Text="{Binding TargetText}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Classes="banner" IsVisible="{Binding HasWarnings}">
+                        <ItemsControl ItemsSource="{Binding Selected.Warnings}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding}" TextWrapping="Wrap" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                    </Border>
+
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Button Classes="plain" Command="{Binding PreviewCommand}" Content="Preview (sends nothing)" />
+                        <Button Classes="danger" Command="{Binding RunCommand}" IsVisible="{Binding IsIdle}" Content="Run…" />
+                        <Button Classes="danger" Command="{Binding StopCommand}" IsVisible="{Binding IsRunning}" Content="Stop and hand back control" />
+                        <TextBlock Classes="caption" Text="Turn on Expert mode to run" IsVisible="{Binding ExpertRequired}" VerticalAlignment="Center" />
+                    </StackPanel>
+
+                    <Border Classes="card" IsVisible="{Binding Result, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                        <StackPanel Spacing="8">
+                            <Border Classes="pill" Classes.ok="{Binding ResultOk}" Classes.bad="{Binding !ResultOk}" HorizontalAlignment="Left"><TextBlock Text="{Binding Result}" FontWeight="SemiBold" FontSize="12" /></Border>
+                            <ItemsControl ItemsSource="{Binding Output}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding}" Classes="mono" FontSize="12.5" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                        </StackPanel>
+                    </Border>
+                    <Border Classes="card" IsVisible="{Binding HasConditions}">
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="h2" Text="Before you start" />
+                            <ItemsControl ItemsSource="{Binding Selected.Conditions}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding, StringFormat='☐  {0}'}" TextWrapping="Wrap" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Classes="card">
+                        <StackPanel Spacing="8">
+                            <TextBlock Classes="h2" Text="What it sends" />
+                            <ItemsControl ItemsSource="{Binding StepLines}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding}" Classes="mono" FontSize="12.5" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                            <TextBlock Classes="caption" Text="{Binding SourceText}" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Classes="card" IsVisible="{Binding HasManual}">
+                        <StackPanel Spacing="6">
+                            <TextBlock Classes="h2" Text="Without a scan tool" />
+                            <ItemsControl ItemsSource="{Binding Selected.Manual}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding}" TextWrapping="Wrap" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

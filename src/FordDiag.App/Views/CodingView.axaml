@@ -1,0 +1,217 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services"
+             x:Class="FordDiag.App.Views.CodingView" x:DataType="vm:CodingViewModel">
+    <Grid RowDefinitions="Auto,*" Margin="32 28 32 24" RowSpacing="16">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Spacing="4" VerticalAlignment="Center" MinWidth="240">
+                <TextBlock Classes="caption" Text="Module" />
+                <ComboBox ItemsSource="{Binding Modules}" SelectedItem="{Binding SelectedModule}" HorizontalAlignment="Stretch" PlaceholderText="Scan the vehicle first">
+                    <ComboBox.ItemTemplate><DataTemplate x:DataType="s:ModuleInfo"><TextBlock><Run Text="{Binding Abbrev}" FontWeight="SemiBold" /><Run Text="  " /><Run Text="{Binding Address}" /></TextBlock></DataTemplate></ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Spacing="2" VerticalAlignment="Center">
+                <TextBlock Classes="h1" Text="Coding" />
+                <TextBlock Classes="muted" Text="Change module options by name. Every write is backed up and verified." TextWrapping="Wrap" />
+            </StackPanel>
+        </DockPanel>
+        <TabControl Grid.Row="1" SelectedIndex="{Binding SelectedTab}">
+            <TabControl.Styles><Style Selector="TabItem"><Setter Property="FontSize" Value="14" /></Style></TabControl.Styles>
+            <TabItem Header="Configuration">
+                <Grid RowDefinitions="Auto,Auto,*,Auto" Margin="0 14 0 0" RowSpacing="10" x:DataType="vm:CodingViewModel" DataContext="{Binding Config}" x:CompileBindings="False">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                            <ComboBox ItemsSource="{Binding FileModules}" SelectedItem="{Binding SelectedFileModule}" IsVisible="{Binding ShowFileModules}" MinWidth="130" />
+                            <Button Classes="plain" Command="{Binding OpenFileCommand}"><StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Folder}" Width="14" Height="14" /><TextBlock Text="Open file…" /></StackPanel></Button>
+                            <Button Classes="plain" Command="{Binding SaveFileCommand}" IsEnabled="{Binding HasData}"><StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Save}" Width="14" Height="14" /><TextBlock Text="Save…" /></StackPanel></Button>
+                            <Button Classes="plain" Command="{Binding CompareFileCommand}" IsEnabled="{Binding HasData}" Content="Compare…" />
+                            <Button Classes="accent" Command="{Binding ReadCommand}"><StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Refresh}" Width="14" Height="14" /><TextBlock Text="Read from module" /></StackPanel></Button>
+                        </StackPanel>
+                        <StackPanel Spacing="1" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding SourceText}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Classes="caption" Text="{Binding DefinitionText}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </DockPanel>
+                    <StackPanel Grid.Row="1" Spacing="6">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10" IsVisible="{Binding ShowChoices}">
+                        <TextBlock Classes="caption" Text="Definition" VerticalAlignment="Center" />
+                        <ComboBox Grid.Column="1" ItemsSource="{Binding Choices}" SelectedItem="{Binding SelectedChoice}" HorizontalAlignment="Stretch" />
+                    </Grid>
+                    <Border Classes="banner" IsVisible="{Binding ShowApproximate}">
+                        <TextBlock TextWrapping="Wrap" Text="This definition only approximately knows how the module's lines are laid out. Check the option names against your vehicle before writing, and compare with a known-good file when you can." />
+                    </Border>
+                    <Border Classes="banner" IsVisible="{Binding ShowRawNotice}">
+                        <TextBlock TextWrapping="Wrap" Text="Option names are not known for this module, so each byte is shown as hex. Use Compare with a second vehicle's file to find which bytes change." />
+                    </Border>
+                    </StackPanel>
+                    <Border Grid.Row="2" Classes="card" Padding="0" ClipToBounds="True">
+                        <Grid RowDefinitions="Auto,Auto,*">
+                            <Grid ColumnDefinitions="*,Auto,Auto" Margin="14 8" ColumnSpacing="10">
+                                <TextBox Text="{Binding Search}" PlaceholderText="Search options (e.g. camera, language, units)" IsEnabled="{Binding HasData}" />
+                                <Button Grid.Column="1" Classes="plain" Command="{Binding RevertAllCommand}" IsEnabled="{Binding HasChanges}" Content="Revert all" />
+                                <Border Grid.Column="2" Classes="pill" Classes.warn="{Binding HasChanges}" VerticalAlignment="Center"><TextBlock Text="{Binding ChangeSummary}" FontSize="12" FontWeight="SemiBold" /></Border>
+                            </Grid>
+                            <Border Grid.Row="1" Height="1" Background="{DynamicResource BorderSubtleBrush}" />
+                            <ListBox Grid.Row="2" Classes="rows" ItemsSource="{Binding Rows}" SelectionMode="Single">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ConfigRow">
+                                        <Grid>
+                                            <Border IsVisible="{Binding IsHeader}" Background="{DynamicResource SurfaceAltBrush}" Padding="16 9">
+                                                <DockPanel>
+                                                    <TextBlock DockPanel.Dock="Right" Text="{Binding Subtitle}" Classes="caption mono" TextTrimming="CharacterEllipsis" MaxWidth="360" VerticalAlignment="Center" />
+                                                    <TextBlock Text="{Binding Title}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                                </DockPanel>
+                                            </Border>
+                                            <ContentControl IsVisible="{Binding IsField}" Content="{Binding Field}">
+                                              <ContentControl.ContentTemplate>
+                                                <DataTemplate x:DataType="vm:ConfigFieldViewModel">
+                                            <Grid ColumnDefinitions="*,300,90,12" MinHeight="46" Margin="16 0 4 0">
+                                                <StackPanel Margin="0 6 12 6" VerticalAlignment="Center" Spacing="0">
+                                                    <TextBlock Text="{Binding Name}" TextWrapping="Wrap" />
+                                                    <TextBlock Classes="caption" Text="{Binding Location}" />
+                                                    <TextBlock Classes="caption" Text="{Binding Note}" IsVisible="{Binding HasNote}" TextWrapping="Wrap" MaxHeight="40" />
+                                                </StackPanel>
+                                                <ComboBox Grid.Column="1" ItemsSource="{Binding Options}" SelectedItem="{Binding SelectedOption}" IsVisible="{Binding IsEnum}" HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                                                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" IsVisible="{Binding IsValue}" VerticalAlignment="Center">
+                                                    <NumericUpDown Value="{Binding NumberValue}" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" Increment="{Binding Increment}" FormatString="0.###" Width="170" />
+                                                    <TextBlock Text="{Binding Unit}" Classes="muted" VerticalAlignment="Center" />
+                                                </StackPanel>
+                                                <TextBox Grid.Column="1" Text="{Binding TextValue}" IsVisible="{Binding IsText}" FontFamily="{StaticResource MonoFont}" MaxLength="2" Width="90" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                <TextBlock Grid.Column="2" Text="{Binding RawText}" Classes="caption mono" Margin="12 0 0 0" VerticalAlignment="Center" />
+                                                <Ellipse Grid.Column="3" Width="8" Height="8" Fill="{DynamicResource WarningBrush}" IsVisible="{Binding IsChanged}" ToolTip.Tip="Changed" />
+                                            </Grid>
+                                                </DataTemplate>
+                                              </ContentControl.ContentTemplate>
+                                            </ContentControl>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6" IsVisible="{Binding ShowEmpty}" IsHitTestVisible="False">
+                                <PathIcon Data="{x:Static s:Icons.Edit}" Width="30" Height="30" Foreground="{DynamicResource TextMutedBrush}" />
+                                <TextBlock Classes="muted" Text="Select a module and press Read from module, or open an as-built file." HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="3" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+                            <TextBlock Classes="caption" Text="{Binding Attribution}" IsVisible="{Binding ShowAttribution}" TextWrapping="Wrap" />
+                            <Border Classes="card" Padding="12" IsVisible="{Binding HasDifferences}" MaxHeight="150">
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Classes="plain" Command="{Binding TakeFileValuesCommand}" Content="Use file values" VerticalAlignment="Top" />
+                                    <ScrollViewer><ItemsControl ItemsSource="{Binding Differences}"><ItemsControl.ItemTemplate><DataTemplate x:DataType="x:String"><TextBlock Text="{Binding}" Classes="mono" FontSize="12" /></DataTemplate></ItemsControl.ItemTemplate></ItemsControl></ScrollViewer>
+                                </DockPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
+                            <TextBlock Classes="caption" Text="Turn on Expert mode to write" IsVisible="{Binding ExpertRequired}" VerticalAlignment="Center" />
+                            <Button Classes="danger" Command="{Binding ApplyCommand}" Content="Write changes to module…" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="As-built lines">
+                <Grid RowDefinitions="Auto,Auto,*" Margin="0 16 0 0" RowSpacing="12">
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                            <Button Classes="plain" Command="{Binding FixChecksumsCommand}" Content="Fix checksums" IsEnabled="{Binding HasLines}" />
+                            <Button Classes="plain" Command="{Binding RevertAllCommand}" Content="Revert all" IsEnabled="{Binding HasLines}" />
+                            <Button Classes="plain" Command="{Binding SaveFileCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Save}" Width="14" Height="14" /><TextBlock Text="Save as…" /></StackPanel>
+                            </Button>
+                            <Button Classes="accent" Command="{Binding OpenFileCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Folder}" Width="14" Height="14" /><TextBlock Text="Open file…" /></StackPanel>
+                            </Button>
+                        </StackPanel>
+                        <TextBlock Text="{Binding FileMessage}" Classes="muted" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0 0 16 0" />
+                    </DockPanel>
+                    <Border Grid.Row="1" Classes="banner">
+                        <TextBlock TextWrapping="Wrap" Text="Edit the raw as-built lines of a file. The last byte of each line is a checksum; Fix checksums (or saving) recalculates it. Nothing here touches the vehicle: use the Configuration tab to write." />
+                    </Border>
+                    <Border Grid.Row="2" Classes="card" Padding="0" ClipToBounds="True">
+                        <Grid RowDefinitions="Auto,*,Auto">
+                            <Grid Height="38" ColumnDefinitions="140,*,*,100,100" Background="{DynamicResource SurfaceAltBrush}">
+                                <TextBlock Classes="caption" Text="Address" Margin="18 0 0 0" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Classes="caption" Text="Value (hex)" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Classes="caption" Text="Original" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="3" Classes="caption" Text="State" VerticalAlignment="Center" />
+                            </Grid>
+                            <ListBox Grid.Row="1" Classes="rows" ItemsSource="{Binding Lines}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:AsBuiltLineViewModel">
+                                        <Grid Height="44" ColumnDefinitions="140,*,*,100,100">
+                                            <TextBlock Text="{Binding KeyText}" Classes="mono" FontWeight="SemiBold" Margin="18 0 0 0" VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="1" Text="{Binding BytesText}" FontFamily="{StaticResource MonoFont}" Margin="0 4 12 4" VerticalContentAlignment="Center" />
+                                            <TextBlock Grid.Column="2" Text="{Binding OriginalText}" Classes="mono muted" VerticalAlignment="Center" />
+                                            <Border Grid.Column="3" Classes="pill" Classes.ok="{Binding IsUnchanged}" Classes.warn="{Binding IsChanged}" Classes.bad="{Binding !IsValid}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding StateText}" FontSize="11" FontWeight="SemiBold" />
+                                            </Border>
+                                            <Border Grid.Column="4" Classes="pill" Classes.ok="{Binding ChecksumOk}" Classes.warn="{Binding ChecksumBad}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding ChecksumText}" FontSize="11" FontWeight="SemiBold" />
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <TextBlock Grid.Row="2" Classes="caption" Margin="18 8" Text="{Binding ChangeSummary}" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Raw DID access">
+                <ScrollViewer>
+                    <Grid ColumnDefinitions="*,360" ColumnSpacing="16" Margin="0 16 0 0">
+                        <StackPanel Spacing="14">
+                            <Border Classes="banner bad" IsVisible="{Binding ExpertRequired}">
+                                <TextBlock TextWrapping="Wrap" Text="Reading is always available. Writing needs Expert mode (top right)." />
+                            </Border>
+                            <Border Classes="card">
+                                <StackPanel Spacing="14">
+                                    <StackPanel Spacing="4" HorizontalAlignment="Left">
+                                        <TextBlock Classes="caption" Text="DID (hex) on the selected module" />
+                                        <TextBox Text="{Binding DidText}" FontFamily="{StaticResource MonoFont}" MaxLength="4" Width="140" />
+                                    </StackPanel>
+                                    <StackPanel Spacing="4">
+                                        <TextBlock Classes="caption" Text="Value (hex bytes)" />
+                                        <TextBox Text="{Binding ValueText}" FontFamily="{StaticResource MonoFont}" AcceptsReturn="True" TextWrapping="Wrap" MinHeight="76" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="10">
+                                        <Button Classes="plain" Command="{Binding ReadDidCommand}" Content="Read from module" />
+                                        <Button Classes="plain" Command="{Binding PreviewCommand}" Content="Preview write (dry run)" />
+                                        <Button Classes="danger" Command="{Binding WriteCommand}" Content="Write to module…" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Plan}" Classes="mono" IsVisible="{Binding Plan, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                    <TextBlock Text="{Binding Result}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <Border Grid.Column="1" Classes="card">
+                            <DockPanel>
+                                <DockPanel DockPanel.Dock="Top" Margin="0 0 0 10">
+                                    <Button DockPanel.Dock="Right" Classes="plain" Command="{Binding RefreshBackupsCommand}" Padding="8 4"><PathIcon Data="{x:Static s:Icons.Refresh}" Width="12" Height="12" /></Button>
+                                    <TextBlock Classes="h2" Text="Backups" VerticalAlignment="Center" />
+                                </DockPanel>
+                                <ListBox Classes="rows" ItemsSource="{Binding Backups}" MaxHeight="360">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:BackupRow">
+                                            <Grid ColumnDefinitions="*,Auto" Margin="0 6">
+                                                <StackPanel>
+                                                    <TextBlock><Run Text="{Binding Module}" FontWeight="SemiBold" /><Run Text=" " /><Run Text="{Binding Did}" FontFamily="{StaticResource MonoFont}" /></TextBlock>
+                                                    <TextBlock Classes="caption" Text="{Binding Time}" />
+                                                    <TextBlock Classes="caption mono" Text="{Binding Hex}" TextTrimming="CharacterEllipsis" MaxWidth="220" />
+                                                </StackPanel>
+                                                <Button Grid.Column="1" Classes="plain" Content="Load" VerticalAlignment="Center" Padding="10 4"
+                                                        Command="{Binding $parent[ListBox].((vm:CodingViewModel)DataContext).UseBackupCommand}" CommandParameter="{Binding}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

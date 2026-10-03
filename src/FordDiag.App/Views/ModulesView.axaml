@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services"
+             x:Class="FordDiag.App.Views.ModulesView" x:DataType="vm:ModulesViewModel">
+    <Grid RowDefinitions="Auto,Auto,*" Margin="32 28 32 24" RowSpacing="16">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                <CheckBox IsChecked="{Binding FullRange}" Content="Full address scan (slow)" ToolTip.Tip="Also probe every address 700-7DF" />
+                <Button Classes="plain" Command="{Binding CancelCommand}" IsVisible="{Binding IsScanning}" Content="Cancel" />
+                <Button Classes="accent" Command="{Binding ScanCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8"><PathIcon Data="{x:Static s:Icons.Search}" Width="14" Height="14" /><TextBlock Text="Scan vehicle" /></StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h1" Text="Modules" />
+                <TextBlock Classes="muted" Text="{Binding Summary}" />
+            </StackPanel>
+        </DockPanel>
+
+        <Border Grid.Row="1" Classes="card" Padding="16 12" IsVisible="{Binding State.HasVehicle}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" VerticalAlignment="Center" Spacing="3" HorizontalAlignment="Right">
+                    <Button Classes="plain" Command="{Binding LookupVehicleCommand}" IsEnabled="{Binding !State.IsLookingUp}" Content="Look up model and engine online" />
+                    <TextBlock Classes="caption" Text="Sends the VIN to nhtsa.gov" HorizontalAlignment="Right" />
+                </StackPanel>
+                <StackPanel Spacing="2" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding State.VehicleTitle}" FontSize="16" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Classes="caption" Text="{Binding State.VehicleSubtitle}" TextTrimming="CharacterEllipsis" />
+                    <TextBlock Classes="caption" Text="{Binding State.LookupError}" Foreground="{DynamicResource DangerBrush}" IsVisible="{Binding State.LookupError, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Grid Grid.Row="2" ColumnDefinitions="*,340" ColumnSpacing="16">
+            <Border Classes="card" Padding="0" ClipToBounds="True">
+                <Grid RowDefinitions="Auto,Auto,*">
+                    <Grid Height="38" ColumnDefinitions="84,110,70,*,170,80" Background="{DynamicResource SurfaceAltBrush}">
+                        <TextBlock Grid.Column="0" Classes="caption" Text="Bus" Margin="18 0 0 0" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" Classes="caption" Text="Address" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="2" Classes="caption" Text="Module" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="3" Classes="caption" Text="Description" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="4" Classes="caption" Text="Software" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="5" Classes="caption" Text="Codes" VerticalAlignment="Center" />
+                    </Grid>
+                    <ProgressBar Grid.Row="1" Height="3" IsIndeterminate="True" IsVisible="{Binding IsScanning}" />
+                    <ListBox Grid.Row="2" Classes="rows" ItemsSource="{Binding State.Modules}" SelectedItem="{Binding Selected}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="s:ModuleInfo">
+                                <Grid Height="46" ColumnDefinitions="84,110,70,*,170,80">
+                                    <Border Classes="pill info" HorizontalAlignment="Left" Margin="14 0 0 0" VerticalAlignment="Center"><TextBlock Text="{Binding BusText}" FontSize="11" FontWeight="SemiBold" /></Border>
+                                    <TextBlock Grid.Column="1" Text="{Binding Address}" Classes="mono" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Abbrev}" FontWeight="SemiBold" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="3" Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="0 0 8 0" />
+                                    <TextBlock Grid.Column="4" Text="{Binding Strategy}" Classes="mono" FontSize="12" VerticalAlignment="Center" />
+                                    <Border Grid.Column="5" Classes="pill" Classes.warn="{Binding HasDtcs}" Classes.ok="{Binding !HasDtcs}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding DtcText}" FontSize="11" FontWeight="SemiBold" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="6" IsVisible="{Binding ShowHint}" IsHitTestVisible="False">
+                        <PathIcon Data="{x:Static s:Icons.Modules}" Width="30" Height="30" Foreground="{DynamicResource TextMutedBrush}" />
+                        <TextBlock Classes="muted" Text="Connect, then press Scan vehicle to discover modules." HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Classes="card">
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <StackPanel Spacing="2" IsVisible="{Binding Selected, Converter={x:Static ObjectConverters.IsNotNull}}">
+                        <TextBlock Classes="h2" Text="{Binding Selected.Abbrev}" />
+                        <TextBlock Classes="muted" Text="{Binding Selected.Name}" TextWrapping="Wrap" />
+                        <TextBlock Classes="caption" Text="{Binding Selected.BusText}" />
+                    </StackPanel>
+                    <TextBlock Classes="muted" Text="Select a module to see its identification." IsVisible="{Binding Selected, Converter={x:Static ObjectConverters.IsNull}}" />
+                    <ItemsControl Grid.Row="1" Margin="0 16 0 0" ItemsSource="{Binding Selected.Identification}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="s:IdentLine">
+                                <StackPanel Margin="0 0 0 12" Spacing="1">
+                                    <TextBlock Classes="caption">
+                                        <Run Text="{Binding DidText}" FontFamily="{StaticResource MonoFont}" /><Run Text="  " /><Run Text="{Binding Name}" />
+                                    </TextBlock>
+                                    <TextBlock Text="{Binding Value}" Classes="mono" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock Grid.Row="2" Classes="caption" Text="{Binding Progress}" TextWrapping="Wrap" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <!-- ELM327/STN transport, ISO-TP and the vehicle simulator -->
+    <ProjectReference Include="..\FordDiag.Comms\FordDiag.Comms.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Coding\Definitions\*.json" LogicalName="FordDiag.Definitions.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Live\Definitions\*.json" LogicalName="FordDiag.Pids.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="Service\Definitions\*.json" LogicalName="FordDiag.Service.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

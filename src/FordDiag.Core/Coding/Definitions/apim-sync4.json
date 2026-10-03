@@ -1,0 +1,3194 @@
+{
+ "id": "apim-sync4",
+ "name": "Ford APIM (SYNC 4)",
+ "module": "7D0",
+ "blockSizes": [
+  20,
+  15,
+  15,
+  5,
+  15,
+  6,
+  16,
+  10,
+  25,
+  25
+ ],
+ "source": "https://github.com/consp/apim-asbuilt-decode",
+ "license": "GPL-3.0",
+ "attribution": "Field definitions derived from consp/apim-asbuilt-decode (GPL-3.0), which extracted them from QNX application debug information and community findings.",
+ "blocks": [
+  {
+   "block": 1,
+   "fields": [
+    {
+     "name": "Smart DSP",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Do not log missing DSP Messages",
+      "1": "Enable, Log missing DSP Messages (When configured for Smart DSP and Lincoln then enable THX Deep Note)"
+     }
+    },
+    {
+     "name": "AAM (Module is related to Smart DSP)",
+     "byte": 0,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Do not log missing AAM messages",
+      "1": "Enable, Log Missing AAM messages (Send speaker walkaround request to ACM)"
+     }
+    },
+    {
+     "name": "SDARS",
+     "byte": 0,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Do not log missing SDARS (ACM) message",
+      "1": "Enable, Log Missing SDARS (ACM) message"
+     }
+    },
+    {
+     "name": "RSEM",
+     "byte": 0,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Do not log missing RSEM messages",
+      "1": "Enable, Log Missing RSEM messages"
+     }
+    },
+    {
+     "name": "FSM Fader in sound menu",
+     "byte": 0,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Tuner type",
+     "byte": 0,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "TT Single tuner",
+      "1": "TT Dual tuner"
+     }
+    },
+    {
+     "name": "TMC",
+     "byte": 0,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "DAB",
+     "byte": 0,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "HDR",
+     "byte": 1,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "RTM Market",
+     "byte": 1,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Non RDS Market",
+      "1": "RDS Market"
+     }
+    },
+    {
+     "name": "REFP",
+     "byte": 1,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "SSAOM",
+     "byte": 1,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Available",
+      "1": "Not available"
+     }
+    },
+    {
+     "name": "BOTTHMI",
+     "byte": 1,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "REVEL Sound System",
+     "byte": 1,
+     "bit": 1,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present",
+      "2": "Unknown",
+      "3": "Unknown"
+     }
+    },
+    {
+     "name": "Presets type",
+     "byte": 1,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Normal Presets (A Enabled)",
+      "1": "Mixed Mode Presets (A Disabled)"
+     }
+    },
+    {
+     "name": "Brazilian frequency support",
+     "byte": 2,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Supported",
+      "1": "Not supported"
+     }
+    },
+    {
+     "name": "Unknown",
+     "byte": 2,
+     "bit": 3,
+     "size": 3,
+     "kind": "enum",
+     "options": {
+      "0": "Unknown"
+     }
+    },
+    {
+     "name": "X40 Radio Present",
+     "byte": 2,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Pre-X40",
+      "1": "X40"
+     }
+    },
+    {
+     "name": "Sound Immersion",
+     "byte": 2,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "USB Self Test Detection",
+     "byte": 2,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Extended Play",
+     "byte": 3,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Extended playtime",
+     "byte": 3,
+     "bit": 5,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "20 minutes",
+      "1": "30 minutes (FNA)",
+      "2": "40 minutes",
+      "3": "60 minutes (FoE)"
+     }
+    },
+    {
+     "name": "FM Tuner",
+     "byte": 3,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "FM Tuner available",
+      "1": "FM Tuner not available"
+     }
+    },
+    {
+     "name": "AM Tuner",
+     "byte": 3,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "AM Tuner available",
+      "1": "AM Tuner not available"
+     }
+    },
+    {
+     "name": "Number of mixed mode presets per page",
+     "byte": 3,
+     "bit": 1,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "6 per page",
+      "1": "5 per page",
+      "2": "10 per page",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "VR for Radio Tuner",
+     "byte": 3,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Rear camera",
+     "byte": 4,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Front camera",
+     "byte": 4,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Rear camera split view",
+     "byte": 4,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "360 Camera view",
+     "byte": 4,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "DAFVC Split view",
+     "byte": 4,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Multi Camera Strategy",
+     "byte": 4,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Hard button toggle",
+      "1": "Soft button toggle"
+     }
+    },
+    {
+     "name": "Trailer Reverse Guidance",
+     "byte": 4,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "CHMSL Camera",
+     "byte": 4,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Aux camera",
+     "byte": 5,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "RVC Split Camera",
+     "byte": 5,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "360 Offset views",
+     "byte": 5,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Steering Angle",
+     "byte": 5,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Pinion",
+      "1": "Wheel"
+     }
+    },
+    {
+     "name": "Driver Restriction Images",
+     "byte": 5,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Allowed",
+      "1": "Restricted"
+     }
+    },
+    {
+     "name": "Park Hold",
+     "byte": 5,
+     "bit": 1,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled (Hitch improvement feature)",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Type of Rear View Camera",
+     "byte": 5,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Analogue",
+      "1": "Digital"
+     }
+    },
+    {
+     "name": "Digital Camera Vehicle Settings",
+     "byte": 6,
+     "bit": 2,
+     "size": 6,
+     "kind": "enum",
+     "options": {
+      "0": "Vehicle 1",
+      "1": "Vehicle 2",
+      "2": "Vehicle 3",
+      "3": "Vehicle 4",
+      "4": "Vehicle 5",
+      "5": "Vehicle 6",
+      "6": "Vehicle 7",
+      "7": "Vehicle 8",
+      "8": "Vehicle 9",
+      "9": "Vehicle 10",
+      "10": "Vehicle 11",
+      "11": "Vehicle 12",
+      "12": "Vehicle 13",
+      "13": "Vehicle 14",
+      "14": "Vehicle 15",
+      "15": "Vehicle 16",
+      "16": "Vehicle 17",
+      "17": "Vehicle 18",
+      "18": "Vehicle 19",
+      "19": "Vehicle 20",
+      "20": "Vehicle 21",
+      "21": "Vehicle 22",
+      "22": "Vehicle 23",
+      "23": "Vehicle 24",
+      "24": "Vehicle 25",
+      "25": "Vehicle 26",
+      "26": "Vehicle 27",
+      "27": "Vehicle 28",
+      "28": "Vehicle 29",
+      "29": "Vehicle 30",
+      "30": "Vehicle 31",
+      "31": "Vehicle 32",
+      "32": "Vehicle 33",
+      "33": "Vehicle 34",
+      "34": "Vehicle 35",
+      "35": "Vehicle 36",
+      "36": "Vehicle 37",
+      "37": "Vehicle 38",
+      "38": "Vehicle 39",
+      "39": "Vehicle 40",
+      "40": "Vehicle 41",
+      "41": "Vehicle 42",
+      "42": "Vehicle 43",
+      "43": "Vehicle 44",
+      "44": "Vehicle 45",
+      "45": "Vehicle 46",
+      "46": "Vehicle 47",
+      "47": "Vehicle 48",
+      "48": "Vehicle 49",
+      "49": "Vehicle 50",
+      "50": "Vehicle 51",
+      "51": "Vehicle 52",
+      "52": "Vehicle 53",
+      "53": "Vehicle 54",
+      "54": "Vehicle 55",
+      "55": "Vehicle 56",
+      "56": "Vehicle 57",
+      "57": "Vehicle 58",
+      "58": "Vehicle 59",
+      "59": "Vehicle 60",
+      "60": "Vehicle 61",
+      "61": "Vehicle 62",
+      "62": "Vehicle 63",
+      "63": "Vehicle 64"
+     }
+    },
+    {
+     "name": "Front rock crawl",
+     "byte": 6,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Rear Rock Crawl",
+     "byte": 6,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "CAN SWC (responds to can bus button signals)",
+     "byte": 7,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not avaliable",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Ignition Type",
+     "byte": 7,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Key start",
+      "1": "Push button start"
+     }
+    },
+    {
+     "name": "WOW Seat",
+     "byte": 7,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Start/Stop Vehicle",
+     "byte": 7,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Non Start/Stop",
+      "1": "Start/Stop"
+     }
+    },
+    {
+     "name": "Transmission type",
+     "byte": 7,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Automatic",
+      "1": "Manual"
+     }
+    },
+    {
+     "name": "Ambient Lighting",
+     "byte": 7,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Door keypad code",
+     "byte": 7,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Legacy multi-countoured Seats",
+     "byte": 7,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "HW SWC",
+     "byte": 8,
+     "bit": 6,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "SWAC with volume, PTT...  (Variant C)",
+      "2": "SWAC with Mode, Seek, etc... (Variant A)",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Number of Bladders",
+     "byte": 8,
+     "bit": 4,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Other",
+      "1": "3 Bladders",
+      "2": "7 Bladders",
+      "3": "11 Bladders"
+     }
+    },
+    {
+     "name": "Park brake type",
+     "byte": 8,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Mechenical",
+      "1": "Electronic"
+     }
+    },
+    {
+     "name": "Trailer backup assistant",
+     "byte": 8,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Enhanced Memory",
+     "byte": 8,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Cross Traffic Alert",
+     "byte": 8,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Number of Personalizations",
+     "byte": 9,
+     "bit": 6,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "2",
+      "2": "3",
+      "3": "4"
+     }
+    },
+    {
+     "name": "WACM",
+     "byte": 9,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Ambint Lighting Type",
+     "byte": 9,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Pantone",
+      "1": "Single Color"
+     }
+    },
+    {
+     "name": "Reverse Gear",
+     "byte": 9,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Legacy",
+      "1": "New"
+     }
+    },
+    {
+     "name": "Phone as Key",
+     "byte": 9,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Trailer Aid Signal Source",
+     "byte": 9,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available with PSCM",
+      "2": "Available with IPMB",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Boundary Alert",
+     "byte": 10,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Reverse Brake Assist",
+     "byte": 10,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Enhanced MSC",
+     "byte": 10,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Ambient Lighting System Strategy",
+     "byte": 10,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Variant 1",
+      "1": "Variant 2"
+     }
+    },
+    {
+     "name": "Power Lumbar",
+     "byte": 10,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "2 Way",
+      "2": "4 Way",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Parking Hot Key",
+     "byte": 10,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Camera Hot Key",
+     "byte": 10,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Driver Assist Hot Key",
+     "byte": 11,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Auto Hold",
+     "byte": 11,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Video On Demand",
+     "byte": 11,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Driver Only MCS",
+     "byte": 11,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "360 Lighting",
+     "byte": 11,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "360 Lighting: Number of Zones",
+     "byte": 11,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "2 Zones",
+      "1": "4 Zones"
+     }
+    },
+    {
+     "name": "Architecture Version",
+     "byte": 11,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Reserved",
+      "1": "FNV2",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Backup Start Passcode",
+     "byte": 12,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Redcap",
+     "byte": 12,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Trailer Backup Assist 2 Feature",
+     "byte": 12,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Dark Car Mode",
+     "byte": 12,
+     "bit": 3,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Legacy",
+      "2": "Version 2.0",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Power to the Box",
+     "byte": 12,
+     "bit": 1,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled with 1 dial",
+      "2": "Enabled with 2 dials",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Trailer Reverse Guidance 2 Feature",
+     "byte": 12,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Trailer Settings Feature",
+     "byte": 13,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Trailer Setup Configuration",
+     "byte": 13,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Trailer Vehicle Style",
+     "byte": 13,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "SUV",
+      "1": "Truck"
+     }
+    },
+    {
+     "name": "Autohitch",
+     "byte": 13,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Autofeature",
+     "byte": 13,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Trailer Lighting",
+     "byte": 13,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "TBA Fifth Wheel Support",
+     "byte": 13,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Integrated Trailer Module",
+     "byte": 13,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Trailer Measurement",
+     "byte": 14,
+     "bit": 6,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "No measurement",
+      "1": "Measurements",
+      "2": "Sticker",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "IOD - Pitch/Roll",
+     "byte": 14,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Eco Behavior",
+     "byte": 14,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Trip 1/2",
+     "byte": 14,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Fuel Economy",
+     "byte": 14,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Zone Lighting",
+     "byte": 14,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Bed Camera",
+     "byte": 14,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "360 Lighting Vehicle HMI",
+     "byte": 15,
+     "bit": 2,
+     "size": 3,
+     "kind": "enum",
+     "options": {
+      "0": "Vehicle 1 (P702) ",
+      "1": "Vehicle 2 (U725)",
+      "2": "Vehicle 3 (P703)",
+      "3": "Vehicle 4 (U704)",
+      "4": "Vehicle 5 (P702 VEV) ",
+      "5": "Vehicle 6 (U553)",
+      "6": "Vehicle 7 (P708) ",
+      "7": "Unknown"
+     }
+    },
+    {
+     "name": "IOD - Navigation",
+     "byte": 15,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - On Board Generator",
+     "byte": 15,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Phone",
+     "byte": 16,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - Audio",
+     "byte": 16,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "IOD - TPMS",
+     "byte": 16,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Eco-Idle",
+     "byte": 16,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Advanced HUD",
+     "byte": 16,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "4 Pin/7 Pin Trailer Connector",
+     "byte": 16,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "No connector/4 Pin",
+      "1": "7 Pin"
+     }
+    },
+    {
+     "name": "IPD-Off-Road #2",
+     "byte": 16,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Seats Hot Key",
+     "byte": 16,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "RCOD View",
+     "byte": 17,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Hitch View",
+     "byte": 17,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "CHMSL View at Speed",
+     "byte": 17,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Aux View at Speed",
+     "byte": 17,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "RCOD View at Speed",
+     "byte": 17,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Hitch View at Speed",
+     "byte": 17,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "1 Pedal Drive",
+     "byte": 17,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Off road Views at Speed",
+     "byte": 17,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Selectable Drive Modes",
+     "byte": 18,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Camera Soft Button",
+     "byte": 18,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "DSM",
+     "byte": 18,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Rocket Setup",
+     "byte": 18,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Number of Bladders Continued",
+     "byte": 18,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "21 Bladders",
+      "1": "17 Bladders",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "360 Camera View Format",
+     "byte": 18,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Horizontal",
+      "1": "Vertical (360 top)",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Seats Hot Key - Number of Buttons",
+     "byte": 19,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Single",
+      "1": "Double"
+     }
+    },
+    {
+     "name": "Trailer Light Check",
+     "byte": 19,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    }
+   ]
+  },
+  {
+   "block": 2,
+   "fields": [
+    {
+     "name": "TRG Picture in Picture",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Vehicle Driver Location",
+     "byte": 0,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Left hand drive",
+      "1": "Right hand drive"
+     }
+    },
+    {
+     "name": "Brand",
+     "byte": 0,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Ford",
+      "1": "Lincoln"
+     }
+    },
+    {
+     "name": "List Browser",
+     "byte": 0,
+     "bit": 3,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Navigation and media",
+      "1": "Navigation only",
+      "2": "None",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Calm Screen",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "4.2 HMI Menu Controller",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Rotary Tune Knob with OK Button",
+      "1": "5-Way Controller"
+     }
+    },
+    {
+     "name": "Gracenote",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Alexa HMI",
+     "byte": 1,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "OTA Automatic Updates HMI",
+     "byte": 1,
+     "bit": 5,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Features Domain Button",
+     "byte": 1,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Favorite Domain",
+     "byte": 1,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "No Favorite Domain",
+      "1": "1 Favorite Domain Button",
+      "2": "2 Favorite Domain Buttons",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Display Off",
+     "byte": 1,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Off-Road Turn Assist",
+     "byte": 1,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Climate Front Zones",
+     "byte": 2,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Dual zone",
+      "1": "Single zone"
+     }
+    },
+    {
+     "name": "Smart Auto",
+     "byte": 2,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Rear Climate",
+     "byte": 2,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Heated Steering Wheel",
+     "byte": 2,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Heated Seats HMI",
+     "byte": 2,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "None (Hard buttons or No Heated or Cooled Seats)",
+      "1": "Cooled Only",
+      "2": "Heated and Cooled",
+      "3": "Heated Only (3-Level)"
+     }
+    },
+    {
+     "name": "Mode Man",
+     "byte": 2,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Climate Control Type",
+     "byte": 2,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Automatic",
+      "1": "Manual"
+     }
+    },
+    {
+     "name": "Recirc Icon",
+     "byte": 3,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Heated Windshield HMI",
+     "byte": 3,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Rear Climate Type",
+     "byte": 3,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Rear Manual w/o Air Flow Mode",
+      "1": "Rear Manual w/ Air Flow Mode",
+      "2": "Automatic",
+      "3": "Fan Only"
+     }
+    },
+    {
+     "name": "Outside Air Temperature HMI",
+     "byte": 3,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Rear Defrost",
+     "byte": 3,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Climate Domain",
+     "byte": 3,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Fan Repeater",
+     "byte": 3,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Temperature Repeater",
+     "byte": 4,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Eheat",
+     "byte": 4,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Quad Zone",
+     "byte": 4,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Auto Air Refresh",
+     "byte": 4,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "PM Sensor for Auto Air Refresh",
+     "byte": 4,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "2.5",
+      "1": "10"
+     }
+    },
+    {
+     "name": "Power",
+     "byte": 4,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Dual",
+     "byte": 4,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Max Defrost",
+     "byte": 4,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Max A/C",
+     "byte": 5,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Status Bar Temperature",
+     "byte": 5,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "On",
+      "1": "Off"
+     }
+    },
+    {
+     "name": "Driver Focused Climate",
+     "byte": 5,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Climate Auto Seats",
+     "byte": 5,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Climate Auto Heated Steering Wheel",
+     "byte": 5,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Mirror Defrost",
+     "byte": 5,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Hybrid  Vehicle",
+     "byte": 6,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not a HEV",
+      "1": "HEV"
+     }
+    },
+    {
+     "name": "PHEV",
+     "byte": 6,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Available"
+     }
+    },
+    {
+     "name": "Charge Port Lock",
+     "byte": 6,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Powerflow Type",
+     "byte": 6,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "None",
+      "1": "MHT",
+      "2": "PS",
+      "3": "PS w/ ERAD 4WD"
+     }
+    },
+    {
+     "name": "Charge Port Type",
+     "byte": 7,
+     "bit": 3,
+     "size": 3,
+     "kind": "enum",
+     "options": {
+      "0": "No charge port",
+      "1": "Type 1",
+      "2": "Type 1 Combo",
+      "3": "Type 2",
+      "4": "Type 2 Combo",
+      "5": "China AC",
+      "6": "Chine DC",
+      "7": "Reserved"
+     }
+    },
+    {
+     "name": "Battery Pack Size",
+     "byte": 7,
+     "bit": 0,
+     "size": 3,
+     "kind": "enum",
+     "options": {
+      "0": "3p",
+      "1": "4p",
+      "2": "Reserved",
+      "3": "Reserved",
+      "4": "Reserved",
+      "5": "Reserved",
+      "6": "Reserved",
+      "7": "Reserved"
+     }
+    },
+    {
+     "name": "TCU",
+     "byte": 8,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Hotspot Capable Modem",
+     "byte": 8,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "HS4 Network",
+     "byte": 8,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Customer Connectivity Setting",
+     "byte": 8,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "TCU Reset",
+     "byte": 8,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "GPS from TCU",
+     "byte": 8,
+     "bit": 2,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Other Brand",
+     "byte": 8,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Standard Ford/Lincoln",
+      "1": "Other brand 1",
+      "2": "Other brand 2",
+      "3": "Other brand 3"
+     }
+    },
+    {
+     "name": "Android Auto Projection",
+     "byte": 9,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Emergency Assistance",
+     "byte": 9,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "AA OE Channel Feature",
+     "byte": 9,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Mobile Navigation",
+     "byte": 9,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Enabled",
+      "1": "Disabled"
+     }
+    },
+    {
+     "name": "Number of Telephony Buttons",
+     "byte": 9,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "1",
+      "1": "2"
+     }
+    },
+    {
+     "name": "ICP Type",
+     "byte": 10,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "EFP",
+      "1": "ICP"
+     }
+    },
+    {
+     "name": "ICP Branding",
+     "byte": 10,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Non branded",
+      "1": "Branded"
+     }
+    },
+    {
+     "name": "ICP Network",
+     "byte": 10,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "CAN",
+      "1": "LIN"
+     }
+    },
+    {
+     "name": "ICP Present",
+     "byte": 10,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Present",
+      "1": "Not preent (Touchscreen HMI On Button)"
+     }
+    },
+    {
+     "name": "Rear Seat Occupant",
+     "byte": 10,
+     "bit": 4,
+     "size": 4,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Illumination Change Step/Gradual",
+     "byte": 11,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Step change",
+      "1": "Gradual change"
+     }
+    },
+    {
+     "name": "Illumination",
+     "byte": 11,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "On",
+      "1": "Off"
+     }
+    },
+    {
+     "name": "Keypad",
+     "byte": 11,
+     "bit": 3,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "5",
+      "1": "7",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Keypad",
+     "byte": 10,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    }
+   ]
+  },
+  {
+   "block": 3,
+   "fields": [
+    {
+     "name": "First Letter of Country Code-ASCII",
+     "byte": 0,
+     "bit": 0,
+     "size": 8,
+     "kind": "ascii"
+    },
+    {
+     "name": "Second Letter of Country Code-ASCII",
+     "byte": 1,
+     "bit": 0,
+     "size": 8,
+     "kind": "ascii"
+    },
+    {
+     "name": "Splash Screen",
+     "byte": 2,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "Default",
+      "1": "Stock determined by brand bit",
+      "2": "F150",
+      "3": "Raptor",
+      "4": "Black label",
+      "5": "Presidential",
+      "6": "Non-shelby Mustang",
+      "7": "Shelby Mustang",
+      "8": "Mustang Shelby R1",
+      "9": "Mustang EVO",
+      "10": "Base Ford (Europe)",
+      "11": "ST",
+      "12": "RS",
+      "13": "Ford GT",
+      "14": "Continental",
+      "15": "Navigator",
+      "16": "Aviator",
+      "17": "Escape",
+      "18": "Explorer",
+      "19": "Expedition",
+      "20": "Bronco",
+      "21": "Maverick (CX430)",
+      "22": "Vignale",
+      "23": "ActiveST Line",
+      "24": "CS727",
+      "25": "Corsair (CX483)",
+      "26": "Nautilus (U540)"
+     }
+    },
+    {
+     "name": "Vehicle Style",
+     "byte": 3,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "Undefined",
+      "1": "Sedan",
+      "2": "Coupe/Convertable",
+      "3": "Pickup Truck",
+      "4": "SUV/CUV",
+      "5": "VAN",
+      "6": "Hatchback",
+      "7": "Wagon",
+      "8": "Small Commuter Van PDC",
+      "9": "EcoSport PDC",
+      "10": "Fiesta PDC",
+      "11": "Bronco",
+      "12": "Muscle Car"
+     }
+    },
+    {
+     "name": "Vehicle Design Variants",
+     "byte": 4,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "8\" Landscape",
+      "1": "10\" Portrait",
+      "2": "10\" Landscape",
+      "3": "12\" Landscape",
+      "4": "12\" Portrait (Dashcard)",
+      "5": "13.2\" Landscape Lincoln (Dashcard)",
+      "6": "13.2\" Landscape Ford (Dashcard)",
+      "7": "15\" Portrait (Dashcard)",
+      "8": "10\" Portrait (Dashcard)",
+      "9": "13.2\" Landscape (Qt based)"
+     }
+    },
+    {
+     "name": "Vehicle",
+     "byte": 5,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "Non programmable",
+      "1": "C344",
+      "2": "C346/C519",
+      "3": "CD391",
+      "4": "CD533",
+      "5": "U611",
+      "6": "U625",
+      "7": "CX482",
+      "8": "CX483",
+      "9": "CX727",
+      "10": "P758",
+      "11": "P702",
+      "12": "CD539",
+      "13": "U725",
+      "14": "U540",
+      "15": "CX482N",
+      "16": "P558",
+      "17": "P702 ICA (Raptor)",
+      "18": "U553",
+      "19": "U554",
+      "20": "CD542",
+      "21": "V363",
+      "22": "P702 BEV",
+      "23": "U704",
+      "24": "P703",
+      "25": "V713"
+     }
+    },
+    {
+     "name": "Bluetooth Audio Profile Index",
+     "byte": 6,
+     "bit": 0,
+     "size": 16,
+     "kind": "enum",
+     "options": {
+      "0": "Profile 1",
+      "1": "U502 - Ford Explorer (Ext Amp)",
+      "2": "MKZ (Ext Amp)",
+      "3": "U387 - Edge",
+      "4": "C344 - CMAX (Int Amp)",
+      "5": "D258 - Taurus (Ext Amp)",
+      "6": "C520 - Escape (Ext Amp)",
+      "7": "B299 - Fiesta (Ext Amp)",
+      "8": "U222 - Expedition (Ext Amp)",
+      "9": "S550 - Mustang (Ext Amp)",
+      "10": "V363N - Transit (Int Amp)",
+      "11": "C346N - Focus / Generic Compact",
+      "12": "Generic Small Xover (Int Amp)",
+      "13": "Generic Small Xover (Ext Amp)",
+      "14": "Generic Large Sedan",
+      "15": "Generic Large SUV",
+      "16": "U228 - Lincoln Navigator",
+      "17": "D471 - Flex (Ext Amp)",
+      "18": "D472 - MKT (Ext Amp)",
+      "19": "C346N - Focus ST (Int Amp)",
+      "20": "P552 - F-150 with Sony",
+      "21": "EU CMAX C344E",
+      "22": "EU Edge CD539X",
+      "23": "EU Explorer U502",
+      "24": "EU Fiesta B299",
+      "25": "EU Focus C346E",
+      "26": "EU Galaxy CD390E Smax CD539E",
+      "27": "EU Kuga C520E",
+      "28": "EU Mondeo CD391E",
+      "29": "EU Mustang S550",
+      "30": "EU Transit 363E",
+      "31": "EU Transit Connect V408",
+      "32": "MKX U540",
+      "33": "D568C",
+      "34": "U375A LHD",
+      "35": "U375A RHD",
+      "36": "P375A LHD",
+      "37": "P375A RHD",
+      "38": "Ford GT",
+      "39": "V362 OHC mic",
+      "40": "V362 HL mic",
+      "41": "B460",
+      "42": "B562 HL",
+      "43": "B562 OHC",
+      "44": "P375 Ranger-DoubleCab",
+      "45": "U375 Everest MoonRoof",
+      "46": "U375 Everest Standard Roof",
+      "47": "P473 - Superduty",
+      "48": "P375 Ranger DBL (Branded)",
+      "49": "P375 Ranger DBL (Unbranded)",
+      "50": "MY19 D568 Branded (New Mic Location)",
+      "51": "MY19 D568 Unbranded (New Mic Location)",
+      "52": "V363N - Transit HL mic",
+      "53": "CX727",
+      "54": "U725"
+     }
+    },
+    {
+     "name": "Bluetooth Vehicle Nameplate ID",
+     "byte": 8,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "SYNC",
+      "1": "Ford Fiesta",
+      "2": "Ford Focus",
+      "3": "Ford Fusion",
+      "4": "Ford C-Max",
+      "5": "Ford Taurus",
+      "6": "Ford Mustang",
+      "7": "Ford EcoSport",
+      "8": "Ford Escape",
+      "9": "Ford Edge",
+      "10": "Ford Flex",
+      "11": "Ford Explorer",
+      "12": "Ford Expedition",
+      "13": "Ford Ranger",
+      "14": "Ford F150",
+      "15": "Ford F250",
+      "16": "Ford F350",
+      "17": "Ford F450",
+      "18": "Ford F550",
+      "19": "Ford Transit Connect",
+      "20": "Ford Transit",
+      "21": "Ford E150",
+      "22": "Ford E350",
+      "23": "Ford F650",
+      "24": "Ford F750",
+      "25": "Lincoln MKZ",
+      "26": "Lincoln MKS",
+      "27": "Lincoln MKC",
+      "28": "Lincoln MKX",
+      "29": "Lincoln MKT",
+      "30": "Lincoln Navigator",
+      "31": "Ford Ka",
+      "32": "Ford Fiesta",
+      "33": "Ford Transit Courier",
+      "34": "Ford B-Max",
+      "35": "Ford Grand C-Max",
+      "36": "Ford Mondeo",
+      "37": "Ford Kuga",
+      "38": "Ford S-Max",
+      "39": "Ford Galaxy",
+      "40": "Ford Figo",
+      "41": "Ford Escort",
+      "42": "Ford Falcon",
+      "43": "Ford Everest",
+      "44": "Ford Territory",
+      "45": "Ford Raptor",
+      "46": "Lincoln Continental",
+      "47": "Ford GT",
+      "48": "Ford Endeavour",
+      "49": "Ford Fiesta ST",
+      "50": "Ford Focus ST",
+      "51": "Ford Focus RS",
+      "52": "Lincoln Aviator",
+      "53": "Lincoln Corsair",
+      "54": "Ford Bronco",
+      "55": "Lincoln Nautilus",
+      "56": "Ford Puma",
+      "57": "Lincoln Aviator Coupe",
+      "58": "Ford Tourneo Connect",
+      "59": "Ford Tourneo Custom",
+      "60": "Shelby GT350",
+      "61": "Shelby GT500",
+      "62": "Bronco Maverick"
+     }
+    },
+    {
+     "name": "LIN 11-X",
+     "byte": 9,
+     "bit": 4,
+     "size": 4,
+     "kind": "value",
+     "multiplier": 1,
+     "offset": 0,
+     "unit": "unitless",
+     "min": 0,
+     "max": 15
+    },
+    {
+     "name": "LIN 12-Y",
+     "byte": 9,
+     "bit": 0,
+     "size": 4,
+     "kind": "value",
+     "multiplier": 1,
+     "offset": 0,
+     "unit": "unitless",
+     "min": 0,
+     "max": 15
+    },
+    {
+     "name": "LIN 13-Z",
+     "byte": 10,
+     "bit": 4,
+     "size": 4,
+     "kind": "value",
+     "multiplier": 1,
+     "offset": 0,
+     "unit": "unitless",
+     "min": 0,
+     "max": 15
+    },
+    {
+     "name": "SDM Max Response Time",
+     "byte": 10,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "None",
+      "1": "200 ms",
+      "2": "500 ms",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "SDM Max Feedback Errors",
+     "byte": 10,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "None",
+      "1": "3",
+      "2": "Reserved",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "SDM Program HMI",
+     "byte": 11,
+     "bit": 6,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Ford HMI Names",
+      "1": "Lincoln HMI Names",
+      "2": "BEV HMI Names",
+      "3": "Program HMI Names"
+     }
+    },
+    {
+     "name": "Massage Pattern",
+     "byte": 12,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "Pattern Set 1",
+      "1": "Pattern Set 2",
+      "2": "Pattern Set 3",
+      "3": "Pattern Set 4",
+      "4": "Pattern Set 5",
+      "5": "Pattern Set 6",
+      "6": "Pattern Set 7",
+      "7": "Pattern Set 8",
+      "8": "Pattern Set 9",
+      "9": "Pattern Set 10",
+      "10": "Pattern Set 11",
+      "11": "Pattern Set 12",
+      "12": "Pattern Set 13",
+      "13": "Pattern Set 14",
+      "14": "Pattern Set 15"
+     }
+    }
+   ]
+  },
+  {
+   "block": 4,
+   "fields": [
+    {
+     "name": "BT Pairing Timeout in seconds",
+     "byte": 0,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 1,
+     "offset": 0,
+     "unit": "seconds",
+     "min": 0,
+     "max": 255
+    }
+   ]
+  },
+  {
+   "block": 5,
+   "fields": [
+    {
+     "name": "Speed limit in HMI",
+     "byte": 0,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Fuel Type",
+     "byte": 0,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Gasoline",
+      "1": "Diesel",
+      "2": "CNG",
+      "3": "BEV"
+     }
+    },
+    {
+     "name": "NAV Repeater conformance",
+     "byte": 0,
+     "bit": 0,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "Current",
+      "2": "HUD Support",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Electronic horizon",
+     "byte": 1,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Electronic horizon type",
+     "byte": 1,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "MPP + Stubs",
+      "1": "MPP + First level sub paths"
+     }
+    },
+    {
+     "name": "Online Traffic",
+     "byte": 1,
+     "bit": 2,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Not available",
+      "1": "Traffic modem (TPEG)",
+      "2": "Online traffic app (TPEG)",
+      "3": "Reserved"
+     }
+    },
+    {
+     "name": "Internal Gyro",
+     "byte": 1,
+     "bit": 1,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Gyro on Bus",
+     "byte": 1,
+     "bit": 0,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Not Present",
+      "1": "Present"
+     }
+    },
+    {
+     "name": "Local Hazard Information",
+     "byte": 2,
+     "bit": 6,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "IPC Support Only",
+      "2": "IPC + HUD Support",
+      "3": "reserved"
+     }
+    },
+    {
+     "name": "Cloud Based Routing",
+     "byte": 2,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Cloud Based Routing Fuel",
+     "byte": 2,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Cloud Based Routing Weather",
+     "byte": 2,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Wheel tick frequency",
+     "byte": 5,
+     "bit": 4,
+     "size": 4,
+     "kind": "enum",
+     "options": {
+      "0": "20ms",
+      "1": "30ms",
+      "2": "40ms",
+      "3": "50ms",
+      "4": "60ms",
+      "5": "70ms",
+      "6": "80ms",
+      "7": "Reserved"
+     }
+    },
+    {
+     "name": "GPS Mount Type",
+     "byte": 5,
+     "bit": 4,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "Roof Mount",
+      "1": "IP Mount (No Heated windshield)",
+      "2": "IP Mount (Heated windshield)",
+      "3": "Windshield (non Heated)",
+      "4": "Windshield (Heated)",
+      "5": "Reserved",
+      "6": "Reserved",
+      "7": "Reserved"
+     }
+    },
+    {
+     "name": "Drive Type",
+     "byte": 6,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "FWD",
+      "1": "RWD",
+      "2": "AWD",
+      "3": "4WD",
+      "4": "Dually 2WD",
+      "5": "Dually 4WD",
+      "6": "Reserved",
+      "7": "Reserved"
+     }
+    },
+    {
+     "name": "Vehicle Length",
+     "byte": 7,
+     "bit": 0,
+     "size": 24,
+     "kind": "value",
+     "multiplier": 0.01,
+     "offset": 0,
+     "unit": "cm",
+     "min": 0.0,
+     "max": 16777215.0
+    },
+    {
+     "name": "Vehicle height",
+     "byte": 10,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.01,
+     "offset": 0,
+     "unit": "cm",
+     "min": 0.0,
+     "max": 65535.0
+    }
+   ]
+  },
+  {
+   "block": 6,
+   "fields": [
+    {
+     "name": "Front Track",
+     "byte": 0,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.01,
+     "offset": 0,
+     "unit": "In",
+     "min": 0.0,
+     "max": 655.35
+    },
+    {
+     "name": "Rear Track",
+     "byte": 2,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.01,
+     "offset": 0,
+     "unit": "In",
+     "min": 0.0,
+     "max": 655.35
+    },
+    {
+     "name": "Wheel Base",
+     "byte": 4,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.01,
+     "offset": 0,
+     "unit": "In",
+     "min": 0.0,
+     "max": 655.35
+    }
+   ]
+  },
+  {
+   "block": 7,
+   "fields": [
+    {
+     "name": "Vehicle Weight",
+     "byte": 0,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 100.0,
+     "offset": 0,
+     "unit": "KG",
+     "min": 0.0,
+     "max": 25500.0
+    },
+    {
+     "name": "ECO Route Curve",
+     "byte": 1,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 1.0,
+     "offset": 1,
+     "unit": "unitless",
+     "min": 1.0,
+     "max": 256.0
+    },
+    {
+     "name": "Powertrain Efficiency",
+     "byte": 2,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 0.39215,
+     "offset": 0,
+     "unit": "%",
+     "min": 0.0,
+     "max": 100.0
+    },
+    {
+     "name": "Regenerative Braking Efficiency Highway",
+     "byte": 3,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 0.39215,
+     "offset": 0,
+     "unit": "%",
+     "min": 0.0,
+     "max": 100.0
+    },
+    {
+     "name": "Regenerative Braking Efficiency City",
+     "byte": 4,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 0.39215,
+     "offset": 0,
+     "unit": "%",
+     "min": 0.0,
+     "max": 100.0
+    },
+    {
+     "name": "Install Angle of APIM for Accelerometer X",
+     "byte": 5,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.006,
+     "offset": 0,
+     "unit": "degrees",
+     "min": 0.0,
+     "max": 393.21
+    },
+    {
+     "name": "Install Angle of APIM for Accelerometer Y",
+     "byte": 7,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.006,
+     "offset": 0,
+     "unit": "degrees",
+     "min": 0.0,
+     "max": 393.21
+    },
+    {
+     "name": "Install Angle of APIM for Accelerometer Z",
+     "byte": 9,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 0.006,
+     "offset": 0,
+     "unit": "degrees",
+     "min": 0.0,
+     "max": 393.21
+    },
+    {
+     "name": "Wheel Ticks to Revolution Front:",
+     "byte": 11,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 1.0,
+     "offset": 40,
+     "unit": "unitless",
+     "min": 40.0,
+     "max": 295.0
+    },
+    {
+     "name": "Wheel Ticks to Revolution Rear",
+     "byte": 12,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 1.0,
+     "offset": 40,
+     "unit": "unitless",
+     "min": 40.0,
+     "max": 295.0
+    },
+    {
+     "name": "Tire Circumference",
+     "byte": 13,
+     "bit": 0,
+     "size": 8,
+     "kind": "value",
+     "multiplier": 1.0,
+     "offset": 100,
+     "unit": "cm",
+     "min": 100.0,
+     "max": 355.0
+    },
+    {
+     "name": "Distance from IP to rear axle",
+     "byte": 14,
+     "bit": 0,
+     "size": 16,
+     "kind": "value",
+     "multiplier": 1.0,
+     "offset": 100,
+     "unit": "cm",
+     "min": 100.0,
+     "max": 65635.0
+    }
+   ]
+  },
+  {
+   "block": 8,
+   "fields": [
+    {
+     "name": "PDC HMI",
+     "byte": 0,
+     "bit": 7,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Steering Wheel Angle Sensor",
+     "byte": 0,
+     "bit": 6,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Relative",
+      "1": "Absolute"
+     }
+    },
+    {
+     "name": "Flank Guard HMI",
+     "byte": 0,
+     "bit": 5,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Off",
+      "1": "On"
+     }
+    },
+    {
+     "name": "Front park Aid Adjustable Chimes",
+     "byte": 0,
+     "bit": 4,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "Rear park Aid Adjustable Chimes",
+     "byte": 0,
+     "bit": 3,
+     "size": 1,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Enabled"
+     }
+    },
+    {
+     "name": "APACSI Signal Strategy",
+     "byte": 0,
+     "bit": 1,
+     "size": 2,
+     "kind": "enum",
+     "options": {
+      "0": "Disabled",
+      "1": "Mode 1 (ApaTrgtDist_D_Stat not supported)",
+      "2": "Mode 2 (ApaMsgTxt_D_Rq not supported)",
+      "3": "Mode 3 (Both not supported)"
+     }
+    },
+    {
+     "name": "Parking Assistance",
+     "byte": 3,
+     "bit": 0,
+     "size": 8,
+     "kind": "enum",
+     "options": {
+      "0": "No PDC/PSM/SAPP (Non or Configuration C5)",
+      "1": "Rear PDC (Configuration C1 or C3)",
+      "2": "Rear/Front PDC (Configuration C6 or C7)",
+      "3": "Rear/Front PDC/SAPP (Configuration C2 or C4) (NA HMI)",
+      "4": "Rear/SAPP (NA HMI)",
+      "5": "Rear/Front PDC/SAPP (Configuration C2 or C4) (EU HMI)",
+      "6": "Rear/SAPP (EU HMI)",
+      "7": "Rear/Front PDC with APA",
+      "8": "APA Lite",
+      "9": "APA Lite Plus (SAPP/POA - 10 Channel)",
+      "10": "APACSI",
+      "11": "FAPA",
+      "12": "0C Unknkown / Reserved",
+      "13": "0D Unknkown / Reserved",
+      "14": "0E Unknkown / Reserved",
+      "15": "0F Unknkown / Reserved"
+     }
+    }
+   ]
+  },
+  {
+   "block": 9,
+   "fields": []
+  },
+  {
+   "block": 10,
+   "fields": []
+  },
+  {
+   "block": 17,
+   "fields": []
+  }
+ ]
+}

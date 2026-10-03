@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FordDiag.App.ViewModels"
+        x:Class="FordDiag.App.Views.MainWindow" x:DataType="vm:MainWindowViewModel"
+        Title="FordDiag" Width="1280" Height="800" MinWidth="980" MinHeight="620"
+        Background="{DynamicResource AppBgBrush}">
+    <Grid ColumnDefinitions="220,*">
+        <!-- navigation rail -->
+        <Border Background="{DynamicResource NavBgBrush}">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Margin="20 22 20 18" Spacing="2">
+                    <TextBlock Text="FordDiag" FontSize="20" FontWeight="Bold" Foreground="White" />
+                    <TextBlock Text="CAN diagnostics &amp; coding" FontSize="12" Foreground="{DynamicResource NavFgBrush}" />
+                </StackPanel>
+                <TextBlock DockPanel.Dock="Bottom" Margin="20 12" FontSize="11" Foreground="{DynamicResource NavFgBrush}" Opacity="0.7" TextWrapping="Wrap"
+                           Text="Unofficial tool. Not affiliated with Ford Motor Company." />
+                <ListBox Classes="nav" ItemsSource="{Binding NavItems}" SelectedItem="{Binding SelectedNav}" Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:NavItem">
+                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                <PathIcon Data="{Binding Icon}" Width="18" Height="18" Foreground="{Binding $parent[ListBoxItem].Foreground}" />
+                                <TextBlock Text="{Binding Title}" VerticalAlignment="Center" Foreground="{Binding $parent[ListBoxItem].Foreground}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Column="1" RowDefinitions="Auto,*">
+            <!-- status bar -->
+            <Border Background="{DynamicResource SurfaceBrush}" BorderBrush="{DynamicResource BorderSubtleBrush}" BorderThickness="0 0 0 1" Padding="20 10">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Command="{Binding ToggleExpertCommand}" Classes="plain flat" VerticalAlignment="Center">
+                        <Border Classes="pill" Classes.bad="{Binding State.IsExpertMode}" Padding="10 4">
+                            <TextBlock Text="{Binding ExpertText}" FontWeight="SemiBold" FontSize="12" />
+                        </Border>
+                    </Button>
+                    <StackPanel Orientation="Horizontal" Spacing="18" VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Ellipse Width="10" Height="10" Classes="dot" Classes.on="{Binding State.IsConnected}">
+                                <Ellipse.Styles>
+                                    <Style Selector="Ellipse.dot"><Setter Property="Fill" Value="{DynamicResource TextMutedBrush}" /></Style>
+                                    <Style Selector="Ellipse.dot.on"><Setter Property="Fill" Value="{DynamicResource SuccessBrush}" /></Style>
+                                </Ellipse.Styles>
+                            </Ellipse>
+                            <TextBlock Text="{Binding State.StatusText}" FontWeight="SemiBold" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding State.AdapterText}" Classes="muted" IsVisible="{Binding State.IsConnected}" />
+                        <TextBlock Text="{Binding State.VoltageText}" Classes="muted" IsVisible="{Binding State.IsConnected}" />
+                        <TextBlock Text="{Binding State.Vin, StringFormat='VIN {0}'}" Classes="muted mono" IsVisible="{Binding State.Vin, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+            <ContentControl Grid.Row="1" Content="{Binding Current}" />
+        </Grid>
+    </Grid>
+</Window>

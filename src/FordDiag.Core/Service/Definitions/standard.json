@@ -1,0 +1,47 @@
+{
+  "procedures": [
+    {
+      "id": "bms-reset", "name": "Battery monitoring system (BMS) reset", "kind": "service", "category": "Battery",
+      "module": "726",
+      "description": "Tells the body control module that the battery was replaced, so the charging strategy and battery state estimate start fresh. Run it after fitting a new battery.",
+      "conditions": ["Ignition on, engine off", "All doors closed, accessories off", "Battery charger connected (stable voltage)"],
+      "warnings": ["Only run this after a battery replacement. If the vehicle reports 'service procedure interrupted', leave it with the doors closed for about 30 minutes so all modules sleep, then retry."],
+      "manual": [
+        "Alternative without a scan tool (reported on owner forums, not verified here): ignition on, engine off.",
+        "Pull and release the high beam lever 5 times, then press and release the brake pedal 3 times, all within about 10 seconds.",
+        "If it worked, the battery warning lamp flashes 3 times within the next 15 seconds."
+      ],
+      "steps": [
+        { "hex": "10 03", "expect": "50 03", "desc": "Start extended diagnostic session" },
+        { "hex": "31 01 20 1A", "expect": "71 01 20 1A", "desc": "Start the BMS reset routine (0x201A)" }
+      ],
+      "cleanup": [ { "hex": "10 01", "desc": "Return to the default session" } ],
+      "source": "Routine 201A on the BCM (0x726) in an extended session is described in community guides for Ford diagnostic tools; FORScan offers the same function. Not verified on hardware by this project.",
+      "confidence": "reported"
+    },
+    {
+      "id": "reset-module-hard", "name": "Restart module (hard reset)", "kind": "service", "category": "Module",
+      "description": "Power-cycles the selected module (UDS ECUReset, hard reset). Useful to apply a configuration change or recover a module that stopped answering.",
+      "conditions": ["Ignition on", "Vehicle stationary"],
+      "warnings": ["Safety systems (airbag, ABS, steering) are unavailable while they restart. Do not run this while driving."],
+      "steps": [ { "hex": "11 01", "expect": "51 01", "desc": "Hard reset (ECUReset 0x01)" } ],
+      "source": "ISO 14229-1 service 0x11.", "confidence": "standard"
+    },
+    {
+      "id": "reset-module-keyoff", "name": "Restart module (key off/on reset)", "kind": "service", "category": "Module",
+      "description": "Simulates a key cycle for the selected module (UDS ECUReset, key off/on).",
+      "conditions": ["Ignition on", "Vehicle stationary"],
+      "warnings": ["The module restarts and may log communication faults in other modules; clear them afterwards."],
+      "steps": [ { "hex": "11 02", "expect": "51 02", "desc": "Key off/on reset (ECUReset 0x02)" } ],
+      "source": "ISO 14229-1 service 0x11.", "confidence": "standard"
+    },
+    {
+      "id": "obd2-mode08-support", "name": "Which on-board tests does the engine module support? (Mode 08)", "kind": "outputTest", "category": "Engine",
+      "module": "7E0",
+      "description": "Asks the powertrain module which SAE J1979 mode 08 test IDs it supports (for example the EVAP leak test). It only reads the support bitmap; no test is started.",
+      "conditions": ["Ignition on"],
+      "steps": [ { "hex": "08 00", "expect": "48 00", "desc": "Read supported mode 08 test IDs" } ],
+      "source": "SAE J1979 mode 08 (request on-board system, test or component control).", "confidence": "standard"
+    }
+  ]
+}

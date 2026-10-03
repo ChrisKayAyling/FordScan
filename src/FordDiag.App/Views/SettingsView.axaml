@@ -1,0 +1,45 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels"
+             x:Class="FordDiag.App.Views.SettingsView" x:DataType="vm:SettingsViewModel">
+    <ScrollViewer>
+        <StackPanel Margin="32 28" Spacing="20" MaxWidth="820" HorizontalAlignment="Left">
+            <TextBlock Classes="h1" Text="Settings" />
+            <Border Classes="card">
+                <StackPanel Spacing="16">
+                    <TextBlock Classes="h2" Text="Appearance" />
+                    <StackPanel Spacing="4">
+                        <TextBlock Classes="caption" Text="Theme" />
+                        <ComboBox ItemsSource="{Binding Themes}" SelectedItem="{Binding Theme}" MinWidth="200" />
+                    </StackPanel>
+                    <TextBlock Classes="h2" Text="Adapter" Margin="0 8 0 0" />
+                    <StackPanel Spacing="4">
+                        <TextBlock Classes="caption" Text="CAN response timeout in ms (0 = adapter default, about 1 s). Lower is faster scanning but may miss slow modules. Applies on next connect." TextWrapping="Wrap" />
+                        <NumericUpDown Value="{Binding Timeout}" Minimum="0" Maximum="1000" Increment="50" FormatString="0" MinWidth="200" HorizontalAlignment="Left" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="h2" Text="Files" />
+                    <TextBlock Classes="caption" Text="Settings" /><TextBlock Classes="mono" Text="{Binding ConfigDir}" TextWrapping="Wrap" />
+                    <TextBlock Classes="caption" Text="Write backups" Margin="0 6 0 0" /><TextBlock Classes="mono" Text="{Binding BackupDir}" TextWrapping="Wrap" />
+                    <TextBlock Classes="h2" Text="Add your own data" Margin="0 14 0 0" />
+                    <TextBlock Classes="muted" TextWrapping="Wrap" Text="Drop *.json files into these folders and restart. They are listed in the app next to the built-in ones, and a file with the same id replaces the built-in entry. The file formats are described in docs/FILE_FORMATS.md." />
+                    <TextBlock Classes="caption" Text="Coding option names" Margin="0 6 0 0" /><TextBlock Classes="mono" Text="{Binding DefinitionsDir}" TextWrapping="Wrap" />
+                    <TextBlock Classes="caption" Text="Module data (mode 22) sets" Margin="0 6 0 0" /><TextBlock Classes="mono" Text="{Binding PidsDir}" TextWrapping="Wrap" />
+                    <TextBlock Classes="caption" Text="Service functions and output tests" Margin="0 6 0 0" /><TextBlock Classes="mono" Text="{Binding ServiceDir}" TextWrapping="Wrap" />
+                </StackPanel>
+            </Border>
+            <Border Classes="card">
+                <StackPanel Spacing="8">
+                    <TextBlock Classes="h2" Text="About" />
+                    <TextBlock Text="{Binding Version, StringFormat='FordDiag {0}'}" FontWeight="SemiBold" />
+                    <TextBlock TextWrapping="Wrap" Classes="muted" Text="Diagnostics and coding for Ford vehicles over ELM327-compatible adapters (vLinker FS, OBDLink EX, ELM327 with HS/MS switch). Inspired by FORScan; independent and unaffiliated with Ford Motor Company or FORScan." />
+                    <Border Classes="banner">
+                        <TextBlock TextWrapping="Wrap" Text="Experimental software. Hardware behaviour has so far been verified against a simulator only. Writing to modules can brick them. You use it at your own risk." />
+                    </Border>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

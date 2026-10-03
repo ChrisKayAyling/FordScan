@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:FordDiag.App.ViewModels" xmlns:s="using:FordDiag.App.Services"
+             x:Class="FordDiag.App.Views.TerminalView" x:DataType="vm:TerminalViewModel">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="32 28 32 24" RowSpacing="14">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                <CheckBox IsChecked="{Binding ShowTrace}" Content="Adapter trace" />
+                <ComboBox ItemsSource="{Binding Modules}" SelectedItem="{Binding Target}" PlaceholderText="Target module" MinWidth="170">
+                    <ComboBox.ItemTemplate><DataTemplate x:DataType="s:ModuleInfo"><TextBlock Text="{Binding Abbrev}" /></DataTemplate></ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Classes="plain" Command="{Binding ClearCommand}" Content="Clear" />
+            </StackPanel>
+            <StackPanel Spacing="2">
+                <TextBlock Classes="h1" Text="Terminal" />
+                <TextBlock Classes="muted" Text="AT/ST adapter commands, or hex UDS requests to the target module." />
+            </StackPanel>
+        </DockPanel>
+        <Border Grid.Row="1" CornerRadius="10" Background="{DynamicResource TerminalBgBrush}" Padding="4">
+            <ScrollViewer x:Name="Scroller">
+                <ItemsControl ItemsSource="{Binding Lines}" Margin="10 8">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="s:LogLine">
+                            <TextBlock FontFamily="{StaticResource MonoFont}" FontSize="12.5" TextWrapping="Wrap" Foreground="{DynamicResource TerminalFgBrush}"
+                                       Classes.err="{Binding Kind, Converter={x:Static s:KindConverters.IsError}}" Classes.tx="{Binding Kind, Converter={x:Static s:KindConverters.IsTx}}" Classes.dim="{Binding Kind, Converter={x:Static s:KindConverters.IsDim}}">
+                                <TextBlock.Styles>
+                                    <Style Selector="TextBlock.err"><Setter Property="Foreground" Value="#F87171" /></Style>
+                                    <Style Selector="TextBlock.tx"><Setter Property="Foreground" Value="#7DB4FF" /></Style>
+                                    <Style Selector="TextBlock.dim"><Setter Property="Opacity" Value="0.55" /></Style>
+                                </TextBlock.Styles>
+                                <Run Text="{Binding TimeText}" /><Run Text="  " /><Run Text="{Binding Prefix}" /><Run Text=" " /><Run Text="{Binding Text}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+            <TextBox x:Name="InputBox" Text="{Binding Input}" FontFamily="{StaticResource MonoFont}" PlaceholderText="22 F1 90   or   ATRV" VerticalContentAlignment="Center" Height="40" />
+            <Button Grid.Column="1" Classes="accent" Command="{Binding SendCommand}" Height="40">
+                <StackPanel Orientation="Horizontal" Spacing="6"><PathIcon Data="{x:Static s:Icons.Send}" Width="14" Height="14" /><TextBlock Text="Send" /></StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
